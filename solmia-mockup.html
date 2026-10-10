@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solmia App Mockup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --terracotta: #C4622D;
+    --terracotta-light: #E07A4F;
+    --sand: #E8D5B7;
+    --sand-light: #F5ECD9;
+    --sage: #8A9E7E;
+    --cream: #FAF6F0;
+    --espresso: #2C1A0E;
+    --dusty-rose: #C4876A;
+    --warm-white: #FFFDF9;
+    --gold: #D4A853;
+  }
+
+  body {
+    background: #1a1008;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  h1.page-title {
+    color: var(--sand);
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  p.page-subtitle {
+    color: var(--dusty-rose);
+    font-size: 0.875rem;
+    margin-bottom: 48px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .screens-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    max-width: 1200px;
+  }
+
+  .screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .screen-label {
+    color: var(--sand);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  /* Phone shell */
+  .phone {
+    width: 280px;
+    height: 580px;
+    background: #111;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.1);
+    position: relative;
+  }
+
+  .phone-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    background: var(--cream);
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 28px;
+    background: var(--warm-white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    font-size: 10px;
+    color: var(--espresso);
+    font-weight: 600;
+  }
+
+  .notch {
+    width: 80px;
+    height: 18px;
+    background: #111;
+    border-radius: 0 0 12px 12px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* ===== SCREEN 1: ONBOARDING ===== */
+  .screen-onboarding {
+    background: linear-gradient(160deg, #C4622D 0%, #8B3A1A 40%, #2C1A0E 100%);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen-onboarding::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,168,83,0.25) 0%, transparent 70%);
+    top: -80px;
+    right: -80px;
+  }
+
+  .sun-logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .sun-circle {
+    width: 40px;
+    height: 40px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(212,168,83,0.6);
+  }
+
+  .sun-ray {
+    position: absolute;
+    width: 4px;
+    height: 12px;
+    background: var(--gold);
+    border-radius: 2px;
+    top: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    opacity: 0.8;
+  }
+
+  .app-name-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--sand-light);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .app-tagline {
+    font-size: 0.75rem;
+    color: rgba(232,213,183,0.7);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--gold);
+    border: none;
+    border-radius: 14px;
+    color: var(--espresso);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(232,213,183,0.3);
+    border-radius: 14px;
+    color: var(--sand-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .trial-badge {
+    margin-top: 16px;
+    font-size: 0.65rem;
+    color: rgba(232,213,183,0.6);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== SCREEN 2: PROFILE SETUP ===== */
+  .screen-profile {
+    background: var(--warm-white);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-header {
+    background: var(--warm-white);
+    padding: 12px 16px 8px;
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .profile-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--espresso);
+    margin-bottom: 2px;
+  }
+
+  .profile-header p {
+    font-size: 0.65rem;
+    color: var(--dusty-rose);
+    letter-spacing: 0.05em;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--sand);
+    margin-top: 8px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 60%;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    border-radius: 2px;
+  }
+
+  .profile-content {
+    padding: 14px 16px;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .avatar-upload {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--terracotta-light), var(--gold));
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: relative;
+  }
+
+  .avatar-plus {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--espresso);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .form-field {
+    margin-bottom: 10px;
+  }
+
+  .form-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dusty-rose);
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 8px 10px;
+    background: var(--sand-light);
+    border: 1px solid var(--sand);
+    border-radius: 10px;
+    font-size: 0.75rem;
+    color: var(--espresso);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .travel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+
+  .tag-active {
+    background: var(--terracotta);
+    color: white;
+  }
+
+  .tag-inactive {
+    background: var(--sand-light);
+    color: var(--espresso);
+    border: 1px solid var(--sand);
+  }
+
+  .profile-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--sand);
+  }
+
+  .btn-continue {
+    width: 100%;
+    padding: 12px;
+    background: var(--terracotta);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+  }
+
+  /* ===== SCREEN 3: SWIPE / DISCOVERY ===== */
+  .screen-swipe {
+    background: var(--cream);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .swipe-header {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--warm-white);
+  }
+
+  .header-logo-small {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sun-mini {
+    width: 22px;
+    height: 22px;
+    background: radial-gradient(circle, var(--gold) 40%, var(--terracotta) 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(212,168,83,0.4);
+  }
+
+  .logo-text-mini {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--espresso);
+    font-weight: 600;
+  }
+
+  .header-icons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--sand-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .card-stack {
+    flex: 1;
+    padding: 10px 14px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .swipe-card {
+    width: 100%;
+    height: 340px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(44,26,14,0.15);
+  }
+
+  .card-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #D4956A 0%, #C4622D 40%, #8B3A1A 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .card-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(44,26,14,0.9));
+    padding: 20px 16px 14px;
+  }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 600;
+  }
+
+  .card-meta {
+    font-size: 0.65rem;
+    color: rgba(232,213,183,0.85);
+    margin: 2px 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-trip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(212,168,83,0.25);
+    border: 1px solid rgba(212,168,83,0.4);
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.6rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .card-tags-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .card-tag {
+    padding: 2px 7px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .swipe-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px 16px 14px;
+  }
+
+  .action-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .btn-pass { background: white; }
+  .btn-connect { background: var(--terracotta); }
+  .btn-super { background: var(--gold); }
+
+  /* Bottom nav */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 10px;
+    background: var(--warm-white);
+    border-top: 1px solid var(--sand);
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 0.5rem;
+    color: #999;
+    cursor: pointer;
+  }
+
+  .nav-item.active { color: var(--terracotta); }
+  .nav-icon { font-size: 1rem; }
+
+  /* ===== SCREEN 4: MESSAGING ===== */
+  .screen-messages {
+    background: var(--warm-white);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .messages-header {
+    padding: 10px 16px 8px;
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .messages-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--espresso);
+  }
+
+  .messages-header p {
+    font-size: 0.6rem;
+    color: var(--dusty-rose);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .matches-row {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--sand-light);
+  }
+
+  .matches-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dusty-rose);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .matches-scroll {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  .match-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .match-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--terracotta);
+  }
+
+  .match-name {
+    font-size: 0.5rem;
+    color: var(--espresso);
+    font-weight: 500;
+  }
+
+  .chat-list {
+    flex: 1;
+    overflow: hidden;
+    padding: 8px 0;
+  }
+
+  .chat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .chat-item:hover { background: var(--sand-light); }
+
+  .chat-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .chat-info { flex: 1; min-width: 0; }
+
+  .chat-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+
+  .chat-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--espresso);
+  }
+
+  .chat-time {
+    font-size: 0.55rem;
+    color: #999;
+  }
+
+  .chat-preview {
+    font-size: 0.62rem;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .chat-trip-tag {
+    font-size: 0.5rem;
+    color: var(--terracotta);
+    font-weight: 600;
+  }
+
+  .unread-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ===== SCREEN 5: TRAVEL/EVENTS ===== */
+  .screen-travel {
+    background: var(--cream);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .travel-header {
+    padding: 10px 16px 8px;
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .travel-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--espresso);
+  }
+
+  .travel-header p {
+    font-size: 0.6rem;
+    color: var(--dusty-rose);
+    letter-spacing: 0.05em;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 10px 16px;
+    overflow: hidden;
+  }
+
+  .filter-tab {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  .filter-tab.active {
+    background: var(--terracotta);
+    color: white;
+  }
+
+  .filter-tab.inactive {
+    background: var(--sand-light);
+    color: var(--espresso);
+  }
+
+  .travel-cards {
+    flex: 1;
+    padding: 0 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .trip-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(44,26,14,0.08);
+    background: white;
+  }
+
+  .trip-card-img {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    position: relative;
+  }
+
+  .trip-card-img-1 { background: linear-gradient(135deg, #5B8DB8, #2C5F8A); }
+  .trip-card-img-2 { background: linear-gradient(135deg, #C4622D, #8B3A1A); }
+
+  .trip-partner-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.9);
+    padding: 3px 7px;
+    border-radius: 10px;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: var(--espresso);
+    letter-spacing: 0.03em;
+  }
+
+  .trip-card-body {
+    padding: 10px 12px;
+  }
+
+  .trip-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: var(--espresso);
+    margin-bottom: 3px;
+  }
+
+  .trip-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .trip-card-date {
+    font-size: 0.58rem;
+    color: #888;
+  }
+
+  .trip-card-price {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--terracotta);
+  }
+
+  .trip-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .going-avatars {
+    display: flex;
+    align-items: center;
+  }
+
+  .going-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid white;
+    margin-right: -6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+  }
+
+  .going-count {
+    font-size: 0.55rem;
+    color: #888;
+    margin-left: 10px;
+  }
+
+  .btn-join {
+    padding: 5px 12px;
+    background: var(--terracotta);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ===== SCREEN 6: PAYWALL ===== */
+  .screen-paywall {
+    background: linear-gradient(180deg, #2C1A0E 0%, #1a0f06 100%);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .paywall-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,98,45,0.2) 0%, transparent 70%);
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .paywall-sun {
+    width: 52px;
+    height: 52px;
+    background: radial-gradient(circle, var(--gold) 40%, var(--terracotta) 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 25px rgba(212,168,83,0.4);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .paywall-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--sand-light);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .paywall-subtitle {
+    font-size: 0.65rem;
+    color: rgba(232,213,183,0.6);
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .features-list {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(232,213,183,0.08);
+  }
+
+  .feature-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(196,98,45,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    font-size: 0.65rem;
+    color: var(--sand);
+  }
+
+  .pricing-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 3px;
+    margin-bottom: 12px;
+    width: 100%;
+  }
+
+  .price-option {
+    flex: 1;
+    padding: 7px 6px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .price-option.selected {
+    background: var(--terracotta);
+  }
+
+  .price-option-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: white;
+    display: block;
+  }
+
+  .price-option-amount {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    display: block;
+  }
+
+  .price-option-sub {
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.7);
+    display: block;
+  }
+
+  .save-badge {
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    background: var(--gold);
+    color: var(--espresso);
+    font-size: 0.45rem;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-start-trial {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--terracotta), var(--gold));
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+
+  .trial-note {
+    font-size: 0.55rem;
+    color: rgba(232,213,183,0.4);
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Solmia</h1>
+<p class="page-subtitle">App Design Mockup — Warm & Wanderlust</p>
+
+<div class="screens-grid">
+
+  <!-- SCREEN 1: Onboarding -->
+  <div class="screen-wrapper">
+    <span class="screen-label">Onboarding</span>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="notch"></div>
+        <div class="screen-onboarding">
+          <div class="sun-logo">
+            <div class="sun-circle"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(0deg) translateY(-14px);"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(45deg) translateY(-14px);"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(90deg) translateY(-14px);"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(135deg) translateY(-14px);"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(180deg) translateY(-14px);"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(225deg) translateY(-14px);"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(270deg) translateY(-14px);"></div>
+            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(315deg) translateY(-14px);"></div>
+          </div>
+          <div class="app-name-logo">Solmia</div>
+          <div class="app-tagline">Wander together. Shine together.</div>
+          <button class="btn-primary">Create my profile</button>
+          <button class="btn-secondary">Sign in</button>
+          <div class="trial-badge">✨ 7-day free trial · No credit card needed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Profile Setup -->
+  <div class="screen-wrapper">
+    <span class="screen-label">Profile Setup</span>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span style="margin-left:30px"></span>
+          <span>●●●</span>
+        </div>
+        <div class="screen-profile">
+          <div class="profile-header">
+            <h2>Build your Solmia profile</h2>
+            <p>Step 2 of 3 — Travel & Interests</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+          </div>
+          <div class="profile-content">
+            <div class="avatar-upload">
+              🌸
+              <div class="avatar-plus">+</div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Your name & age</label>
+              <input class="form-input" value="Sofia, 31" readonly />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Home city</label>
+              <input class="form-input" value="New York, USA" readonly />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Next trip destination</label>
+              <input class="form-input" value="✈️  Bali, Indonesia — March 2025" readonly />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Trip budget</label>
+              <input class="form-input" value="💰  $2,000 – $4,000" readonly />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Travel style</label>
+              <div class="travel-tags">
+                <span class="tag tag-active">Solo explorer</span>
+                <span class="tag tag-active">Culture</span>
+                <span class="tag tag-inactive">Luxury</span>
+                <span class="tag tag-active">Adventure</span>
+                <span class="tag tag-inactive">Beach</span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-footer">
+            <button class="btn-continue">Continue →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Swipe Discovery -->
+  <div class="screen-wrapper">
+    <span class="screen-label">Discover</span>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span style="margin-left:30px"></span>
+          <span>●●●</span>
+        </div>
+        <div class="screen-swipe">
+          <div class="swipe-header">
+            <div class="header-logo-small">
+              <div class="sun-mini"></div>
+              <span class="logo-text-mini">Solmia</span>
+            </div>
+            <div class="header-icons">
+              <div class="icon-btn">🔍</div>
+              <div class="icon-btn">⚙️</div>
+            </div>
+          </div>
+          <div class="card-stack">
+            <div class="swipe-card">
+              <div class="card-bg">
+                <div class="card-photo-placeholder">
+                  <div class="avatar-large">🌺</div>
+                </div>
+                <div class="card-overlay">
+                  <div class="card-name">Amara, 29</div>
+                  <div class="card-meta">
+                    <span>📍 London, UK</span>
+                    <span>·</span>
+                    <span>2 mi away</span>
+                  </div>
+                  <div class="card-trip">✈️ Next trip: Bali, March</div>
+                  <div class="card-tags-row">
+                    <span class="card-tag">Solo explorer</span>
+                    <span class="card-tag">Adventure</span>
+                    <span class="card-tag">Culture</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swipe-actions">
+            <button class="action-btn btn-pass">✕</button>
+            <button class="action-btn btn-super">⭐</button>
+            <button class="action-btn btn-connect">☀️</button>
+          </div>
+          <div class="bottom-nav">
+            <div class="nav-item active">
+              <span class="nav-icon">☀️</span>
+              <span>Discover</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">🌍</span>
+              <span>Trips</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">💬</span>
+              <span>Messages</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">👤</span>
+              <span>Profile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: Messages -->
+  <div class="screen-wrapper">
+    <span class="screen-label">Messages</span>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span style="margin-left:30px"></span>
+          <span>●●●</span>
+        </div>
+        <div class="screen-messages">
+          <div class="messages-header">
+            <h2>Messages</h2>
+            <p>Your connections</p>
+          </div>
+          <div class="matches-row">
+            <div class="matches-label">New matches</div>
+            <div class="matches-scroll">
+              <div class="match-avatar">
+                <div class="match-circle" style="background: linear-gradient(135deg, #C4622D, #D4A853);">🌸</div>
+                <span class="match-name">Amara</span>
+              </div>
+              <div class="match-avatar">
+                <div class="match-circle" style="background: linear-gradient(135deg, #8A9E7E, #5B7A52);">🌿</div>
+                <span class="match-name">Priya</span>
+              </div>
+              <div class="match-avatar">
+                <div class="match-circle" style="background: linear-gradient(135deg, #5B8DB8, #2C5F8A);">🌊</div>
+                <span class="match-name">Zara</span>
+              </div>
+              <div class="match-avatar">
+                <div class="match-circle" style="background: linear-gradient(135deg, #C4876A, #8B4A2A);">🦋</div>
+                <span class="match-name">Lucia</span>
+              </div>
+            </div>
+          </div>
+          <div class="chat-list">
+            <div class="chat-item">
+              <div class="chat-avatar" style="background: linear-gradient(135deg, #C4622D, #D4A853);">🌸</div>
+              <div class="chat-info">
+                <div class="chat-name-row">
+                  <span class="chat-name">Amara</span>
+                  <span class="chat-time">2m ago</span>
+                </div>
+                <div class="chat-trip-tag">✈️ Both going to Bali!</div>
+                <div class="chat-preview">Omg yes we should totally meet up!</div>
+              </div>
+              <div class="unread-dot"></div>
+            </div>
+            <div class="chat-item">
+              <div class="chat-avatar" style="background: linear-gradient(135deg, #8A9E7E, #5B7A52);">🌿</div>
+              <div class="chat-info">
+                <div class="chat-name-row">
+                  <span class="chat-name">Priya</span>
+                  <span class="chat-time">1h ago</span>
+                </div>
+                <div class="chat-trip-tag">✈️ Both going to Morocco!</div>
+                <div class="chat-preview">Have you been to Marrakech before?</div>
+              </div>
+            </div>
+            <div class="chat-item">
+              <div class="chat-avatar" style="background: linear-gradient(135deg, #5B8DB8, #2C5F8A);">🌊</div>
+              <div class="chat-info">
+                <div class="chat-name-row">
+                  <span class="chat-name">Solmia Girls Trip 🌍</span>
+                  <span class="chat-time">3h ago</span>
+                </div>
+                <div class="chat-preview">Zara: Who's joining the Bali retreat?</div>
+              </div>
+              <div class="unread-dot"></div>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <div class="nav-item">
+              <span class="nav-icon">☀️</span>
+              <span>Discover</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">🌍</span>
+              <span>Trips</span>
+            </div>
+            <div class="nav-item active">
+              <span class="nav-icon">💬</span>
+              <span>Messages</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">👤</span>
+              <span>Profile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: Travel/Events -->
+  <div class="screen-wrapper">
+    <span class="screen-label">Group Trips</span>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span style="margin-left:30px"></span>
+          <span>●●●</span>
+        </div>
+        <div class="screen-travel">
+          <div class="travel-header">
+            <h2>Group Adventures</h2>
+            <p>Curated trips for Solmia women</p>
+          </div>
+          <div class="filter-tabs">
+            <span class="filter-tab active">All trips</span>
+            <span class="filter-tab inactive">YourGuide</span>
+            <span class="filter-tab inactive">Worldpackers</span>
+          </div>
+          <div class="travel-cards">
+            <div class="trip-card">
+              <div class="trip-card-img trip-card-img-1">
+                🏛️
+                <span class="trip-partner-badge">YourGuide</span>
+              </div>
+              <div class="trip-card-body">
+                <div class="trip-card-title">Santorini Sunset Retreat</div>
+                <div class="trip-card-meta">
+                  <span class="trip-card-date">📅 Apr 12 – Apr 19, 2025</span>
+                  <span class="trip-card-price">From $1,200</span>
+                </div>
+                <div class="trip-card-footer">
+                  <div style="display:flex; align-items:center;">
+                    <div class="going-avatars">
+                      <div class="going-avatar" style="background:#C4622D;">🌸</div>
+                      <div class="going-avatar" style="background:#8A9E7E;">🌿</div>
+                      <div class="going-avatar" style="background:#5B8DB8;">🌊</div>
+                    </div>
+                    <span class="going-count">+14 going</span>
+                  </div>
+                  <button class="btn-join">Join trip</button>
+                </div>
+              </div>
+            </div>
+            <div class="trip-card">
+              <div class="trip-card-img trip-card-img-2">
+                🌴
+                <span class="trip-partner-badge">Worldpackers</span>
+              </div>
+              <div class="trip-card-body">
+                <div class="trip-card-title">Bali Women's Wellness Week</div>
+                <div class="trip-card-meta">
+                  <span class="trip-card-date">📅 Mar 5 – Mar 12, 2025</span>
+                  <span class="trip-card-price">From $890</span>
+                </div>
+                <div class="trip-card-footer">
+                  <div style="display:flex; align-items:center;">
+                    <div class="going-avatars">
+                      <div class="going-avatar" style="background:#C4876A;">🦋</div>
+                      <div class="going-avatar" style="background:#C4622D;">🌺</div>
+                    </div>
+                    <span class="going-count">+8 going</span>
+                  </div>
+                  <button class="btn-join">Join trip</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <div class="nav-item">
+              <span class="nav-icon">☀️</span>
+              <span>Discover</span>
+            </div>
+            <div class="nav-item active">
+              <span class="nav-icon">🌍</span>
+              <span>Trips</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">💬</span>
+              <span>Messages</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">👤</span>
+              <span>Profile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: Paywall -->
+  <div class="screen-wrapper">
+    <span class="screen-label">Paywall</span>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="notch"></div>
+        <div class="status-bar" style="background: #2C1A0E; color: var(--sand);">
+          <span>9:41</span>
+          <span style="margin-left:30px"></span>
+          <span>●●●</span>
+        </div>
+        <div class="screen-paywall">
+          <div class="paywall-glow"></div>
+          <div class="paywall-sun">☀️</div>
+          <div class="paywall-title">Unlock all of Solmia</div>
+          <div class="paywall-subtitle">7 days free · Cancel anytime</div>
+          <div class="features-list">
+            <div class="feature-item">
+              <div class="feature-icon">📍</div>
+              <span class="feature-text">Geolocation & proximity matching</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">📅</div>
+              <span class="feature-text">Local & global events</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🌍</div>
+              <span class="feature-text">Group travel & partner trips</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🔔</div>
+              <span class="feature-text">Real-time notifications</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🔒</div>
+              <span class="feature-text">Advanced safety & verification</span>
+            </div>
+          </div>
+          <div class="pricing-toggle">
+            <div class="price-option" style="background: rgba(255,255,255,0.05);">
+              <span class="price-option-label">Monthly</span>
+              <span class="price-option-amount">$24.99</span>
+              <span class="price-option-sub">per month</span>
+            </div>
+            <div class="price-option selected" style="position:relative;">
+              <span class="save-badge">SAVE 8%</span>
+              <span class="price-option-label">Yearly</span>
+              <span class="price-option-amount">$275</span>
+              <span class="price-option-sub">$22.92/mo</span>
+            </div>
+          </div>
+          <button class="btn-start-trial">Start my free 7-day trial</button>
+          <div class="trial-note">No charge until trial ends · Cancel anytime</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
