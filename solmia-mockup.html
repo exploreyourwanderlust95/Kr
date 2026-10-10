@@ -2,1456 +2,1467 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Solmia App Mockup</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  /* Layout: dark presentation page; one interactive phone beside a screen index + developer notes. */
   :root {
     --terracotta: #C4622D;
     --terracotta-light: #E07A4F;
+    --terracotta-deep: #8B3A1A;
     --sand: #E8D5B7;
     --sand-light: #F5ECD9;
     --sage: #8A9E7E;
+    --sage-deep: #5B7A52;
     --cream: #FAF6F0;
     --espresso: #2C1A0E;
     --dusty-rose: #C4876A;
     --warm-white: #FFFDF9;
     --gold: #D4A853;
+    --muted: #8C7B6E;
+    --page: #1a1008;
+    --panel: #24170c;
+    --safe: #4F7A45;
+    --safe-bg: #E6EFDF;
+    --unsafe: #A8402A;
+    --unsafe-bg: #F7E1D9;
+    --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color-scheme: dark;
   }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { background: var(--page); }
   body {
-    background: #1a1008;
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-    min-height: 100vh;
+    color: var(--sand);
+    font-family: var(--font-body);
+    padding: 32px 16px;
+    min-height: 100%;
+  }
+  button { font-family: inherit; cursor: pointer; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 2px;
   }
 
-  h1.page-title {
-    color: var(--sand);
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 8px;
+  .stage {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ===== Side panel ===== */
+  .panel { display: flex; flex-direction: column; gap: 28px; min-width: 0; padding-top: 12px; }
+  .panel h1 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--sand-light);
     letter-spacing: 0.02em;
+    font-weight: 600;
   }
-
-  p.page-subtitle {
+  .panel .subtitle {
     color: var(--dusty-rose);
-    font-size: 0.875rem;
-    margin-bottom: 48px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .screens-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    justify-content: center;
-    max-width: 1200px;
-  }
-
-  .screen-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .screen-label {
-    color: var(--sand);
     font-size: 0.75rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 500;
+    margin-top: 6px;
   }
+  .panel .intro { color: rgba(232,213,183,0.75); font-size: 0.9rem; line-height: 1.6; max-width: 46ch; margin-top: 14px; }
+  .panel h2 {
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dusty-rose); font-weight: 600; margin-bottom: 10px;
+  }
+  .screen-index { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+  .screen-index button {
+    text-align: left;
+    background: transparent;
+    border: 1px solid rgba(232,213,183,0.14);
+    color: var(--sand);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .screen-index button:hover { border-color: rgba(232,213,183,0.4); }
+  .screen-index button.current { background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+  .screen-index .new {
+    margin-left: auto; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--espresso); background: var(--gold); padding: 2px 5px; border-radius: 6px;
+  }
+  .notes {
+    background: var(--panel);
+    border: 1px solid rgba(232,213,183,0.1);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+  .notes h3 { font-family: var(--font-display); color: var(--sand-light); font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
+  .notes ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .notes li { font-size: 0.85rem; line-height: 1.5; color: rgba(232,213,183,0.8); }
+  .fineprint { font-size: 0.75rem; color: rgba(232,213,183,0.45); line-height: 1.5; max-width: 50ch; }
 
-  /* Phone shell */
+  /* ===== Phone shell ===== */
   .phone {
-    width: 280px;
-    height: 580px;
+    width: 390px;
+    height: 800px;
     background: #111;
-    border-radius: 40px;
+    border-radius: 48px;
     padding: 12px;
     box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.1);
-    position: relative;
   }
-
   .phone-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
+    width: 100%; height: 100%;
+    border-radius: 38px;
     overflow: hidden;
     position: relative;
     background: var(--cream);
-  }
-
-  /* Status bar */
-  .status-bar {
-    height: 28px;
-    background: var(--warm-white);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
-    font-size: 10px;
     color: var(--espresso);
-    font-weight: 600;
+    color-scheme: light;
+    display: flex; flex-direction: column;
+    font-size: 13px;
   }
-
   .notch {
-    width: 80px;
-    height: 18px;
-    background: #111;
-    border-radius: 0 0 12px 12px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 110px; height: 26px; background: #111;
+    border-radius: 0 0 16px 16px;
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    z-index: 30;
   }
-
-  /* ===== SCREEN 1: ONBOARDING ===== */
-  .screen-onboarding {
-    background: linear-gradient(160deg, #C4622D 0%, #8B3A1A 40%, #2C1A0E 100%);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
+  .status-bar {
+    height: 38px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 26px 0;
+    font-size: 12px; font-weight: 600;
+    background: var(--warm-white); color: var(--espresso);
   }
+  .status-bar.dark { background: var(--espresso); color: var(--sand); }
+  .status-bar.sunset { background: var(--terracotta); color: var(--sand-light); }
 
-  .screen-onboarding::before {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(212,168,83,0.25) 0%, transparent 70%);
-    top: -80px;
-    right: -80px;
-  }
+  .screens { flex: 1; min-height: 0; position: relative; }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--cream); }
+  .scroll { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; }
+  .scroll::-webkit-scrollbar { display: none; }
 
-  .sun-logo {
-    width: 72px;
-    height: 72px;
-    margin-bottom: 16px;
-    position: relative;
-  }
-
-  .sun-circle {
-    width: 40px;
-    height: 40px;
-    background: var(--gold);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 20px rgba(212,168,83,0.6);
-  }
-
-  .sun-ray {
-    position: absolute;
-    width: 4px;
-    height: 12px;
-    background: var(--gold);
-    border-radius: 2px;
-    top: 50%;
-    left: 50%;
-    transform-origin: bottom center;
-    opacity: 0.8;
-  }
-
-  .app-name-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: var(--sand-light);
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    margin-bottom: 8px;
-  }
-
-  .app-tagline {
-    font-size: 0.75rem;
-    color: rgba(232,213,183,0.7);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 48px;
-    text-align: center;
-  }
-
-  .btn-primary {
-    width: 100%;
-    padding: 14px;
-    background: var(--gold);
-    border: none;
-    border-radius: 14px;
-    color: var(--espresso);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-
-  .btn-secondary {
-    width: 100%;
-    padding: 14px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(232,213,183,0.3);
-    border-radius: 14px;
-    color: var(--sand-light);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-  }
-
-  .trial-badge {
-    margin-top: 16px;
-    font-size: 0.65rem;
-    color: rgba(232,213,183,0.6);
-    text-align: center;
-    letter-spacing: 0.05em;
-  }
-
-  /* ===== SCREEN 2: PROFILE SETUP ===== */
-  .screen-profile {
+  /* Shared app header */
+  .app-header {
+    padding: 10px 18px 12px;
     background: var(--warm-white);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .profile-header {
-    background: var(--warm-white);
-    padding: 12px 16px 8px;
     border-bottom: 1px solid var(--sand);
+    display: flex; align-items: center; gap: 10px;
+    flex-shrink: 0;
   }
-
-  .profile-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--espresso);
-    margin-bottom: 2px;
+  .app-header .titles { flex: 1; min-width: 0; }
+  .app-header h2 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--espresso); line-height: 1.2; }
+  .app-header p { font-size: 11px; color: var(--dusty-rose); letter-spacing: 0.04em; margin-top: 2px; }
+  .back-btn, .icon-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--sand-light); border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--espresso); flex-shrink: 0;
   }
-
-  .profile-header p {
-    font-size: 0.65rem;
-    color: var(--dusty-rose);
-    letter-spacing: 0.05em;
-  }
-
-  .progress-bar {
-    height: 3px;
-    background: var(--sand);
-    margin-top: 8px;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    width: 60%;
-    background: linear-gradient(90deg, var(--terracotta), var(--gold));
-    border-radius: 2px;
-  }
-
-  .profile-content {
-    padding: 14px 16px;
-    flex: 1;
-    overflow: hidden;
-  }
-
-  .avatar-upload {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--terracotta-light), var(--gold));
-    margin: 0 auto 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    position: relative;
-  }
-
-  .avatar-plus {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background: var(--espresso);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .form-field {
-    margin-bottom: 10px;
-  }
-
-  .form-label {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--dusty-rose);
-    font-weight: 600;
-    margin-bottom: 4px;
-    display: block;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 8px 10px;
-    background: var(--sand-light);
-    border: 1px solid var(--sand);
-    border-radius: 10px;
-    font-size: 0.75rem;
-    color: var(--espresso);
-    font-family: 'Inter', sans-serif;
-  }
-
-  .travel-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 4px;
-  }
-
-  .tag {
-    padding: 4px 9px;
-    border-radius: 20px;
-    font-size: 0.6rem;
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-  }
-
-  .tag-active {
-    background: var(--terracotta);
-    color: white;
-  }
-
-  .tag-inactive {
-    background: var(--sand-light);
-    color: var(--espresso);
-    border: 1px solid var(--sand);
-  }
-
-  .profile-footer {
-    padding: 12px 16px;
-    border-top: 1px solid var(--sand);
-  }
-
-  .btn-continue {
-    width: 100%;
-    padding: 12px;
-    background: var(--terracotta);
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-  }
-
-  /* ===== SCREEN 3: SWIPE / DISCOVERY ===== */
-  .screen-swipe {
-    background: var(--cream);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .swipe-header {
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--warm-white);
-  }
-
-  .header-logo-small {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .sun-mini {
-    width: 22px;
-    height: 22px;
-    background: radial-gradient(circle, var(--gold) 40%, var(--terracotta) 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(212,168,83,0.4);
-  }
-
-  .logo-text-mini {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--espresso);
-    font-weight: 600;
-  }
-
-  .header-icons {
-    display: flex;
-    gap: 12px;
-  }
-
-  .icon-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--sand-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    cursor: pointer;
-  }
-
-  .card-stack {
-    flex: 1;
-    padding: 10px 14px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .swipe-card {
-    width: 100%;
-    height: 340px;
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 8px 30px rgba(44,26,14,0.15);
-  }
-
-  .card-bg {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(160deg, #D4956A 0%, #C4622D 40%, #8B3A1A 100%);
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .card-photo-placeholder {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .avatar-large {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    border: 2px solid rgba(255,255,255,0.3);
-  }
-
-  .card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(44,26,14,0.9));
-    padding: 20px 16px 14px;
-  }
-
-  .card-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: white;
-    font-weight: 600;
-  }
-
-  .card-meta {
-    font-size: 0.65rem;
-    color: rgba(232,213,183,0.85);
-    margin: 2px 0 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .card-trip {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: rgba(212,168,83,0.25);
-    border: 1px solid rgba(212,168,83,0.4);
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-size: 0.6rem;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-
-  .card-tags-row {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-  }
-
-  .card-tag {
-    padding: 2px 7px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 10px;
-    font-size: 0.55rem;
-    color: rgba(255,255,255,0.85);
-  }
-
-  .swipe-actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    padding: 10px 16px 14px;
-  }
-
-  .action-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  }
-
-  .btn-pass { background: white; }
-  .btn-connect { background: var(--terracotta); }
-  .btn-super { background: var(--gold); }
+  .back-btn { font-size: 22px; line-height: 1; padding-bottom: 2px; }
 
   /* Bottom nav */
   .bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    padding: 8px 0 10px;
+    display: flex; justify-content: space-around;
+    padding: 8px 4px 18px;
     background: var(--warm-white);
     border-top: 1px solid var(--sand);
+    flex-shrink: 0;
   }
-
   .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    font-size: 0.5rem;
-    color: #999;
-    cursor: pointer;
-  }
-
-  .nav-item.active { color: var(--terracotta); }
-  .nav-icon { font-size: 1rem; }
-
-  /* ===== SCREEN 4: MESSAGING ===== */
-  .screen-messages {
-    background: var(--warm-white);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .messages-header {
-    padding: 10px 16px 8px;
-    background: var(--warm-white);
-    border-bottom: 1px solid var(--sand);
-  }
-
-  .messages-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--espresso);
-  }
-
-  .messages-header p {
-    font-size: 0.6rem;
-    color: var(--dusty-rose);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .matches-row {
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--sand-light);
-  }
-
-  .matches-label {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--dusty-rose);
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-
-  .matches-scroll {
-    display: flex;
-    gap: 10px;
-    overflow: hidden;
-  }
-
-  .match-avatar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-  }
-
-  .match-circle {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    border: 2px solid var(--terracotta);
-  }
-
-  .match-name {
-    font-size: 0.5rem;
-    color: var(--espresso);
-    font-weight: 500;
-  }
-
-  .chat-list {
-    flex: 1;
-    overflow: hidden;
-    padding: 8px 0;
-  }
-
-  .chat-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-
-  .chat-item:hover { background: var(--sand-light); }
-
-  .chat-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-
-  .chat-info { flex: 1; min-width: 0; }
-
-  .chat-name-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2px;
-  }
-
-  .chat-name {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--espresso);
-  }
-
-  .chat-time {
-    font-size: 0.55rem;
-    color: #999;
-  }
-
-  .chat-preview {
-    font-size: 0.62rem;
-    color: #888;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .chat-trip-tag {
-    font-size: 0.5rem;
-    color: var(--terracotta);
-    font-weight: 600;
-  }
-
-  .unread-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--terracotta);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ===== SCREEN 5: TRAVEL/EVENTS ===== */
-  .screen-travel {
-    background: var(--cream);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .travel-header {
-    padding: 10px 16px 8px;
-    background: var(--warm-white);
-    border-bottom: 1px solid var(--sand);
-  }
-
-  .travel-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--espresso);
-  }
-
-  .travel-header p {
-    font-size: 0.6rem;
-    color: var(--dusty-rose);
-    letter-spacing: 0.05em;
-  }
-
-  .filter-tabs {
-    display: flex;
-    gap: 6px;
-    padding: 10px 16px;
-    overflow: hidden;
-  }
-
-  .filter-tab {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.6rem;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    letter-spacing: 0.02em;
-  }
-
-  .filter-tab.active {
-    background: var(--terracotta);
-    color: white;
-  }
-
-  .filter-tab.inactive {
-    background: var(--sand-light);
-    color: var(--espresso);
-  }
-
-  .travel-cards {
-    flex: 1;
-    padding: 0 14px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .trip-card {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(44,26,14,0.08);
-    background: white;
-  }
-
-  .trip-card-img {
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 10px; color: #9a8e84; background: none; border: none; padding: 2px 6px;
     position: relative;
   }
-
-  .trip-card-img-1 { background: linear-gradient(135deg, #5B8DB8, #2C5F8A); }
-  .trip-card-img-2 { background: linear-gradient(135deg, #C4622D, #8B3A1A); }
-
-  .trip-partner-badge {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(255,255,255,0.9);
-    padding: 3px 7px;
-    border-radius: 10px;
-    font-size: 0.5rem;
-    font-weight: 700;
-    color: var(--espresso);
-    letter-spacing: 0.03em;
+  .nav-item.active { color: var(--terracotta); font-weight: 600; }
+  .nav-icon { font-size: 19px; }
+  .nav-badge {
+    position: absolute; top: -2px; right: 4px;
+    min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px;
+    background: var(--terracotta); color: #fff; font-size: 9px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  .trip-card-body {
-    padding: 10px 12px;
+  /* Buttons */
+  .btn {
+    width: 100%; padding: 14px; border-radius: 14px; border: none;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.01em;
+  }
+  .btn-primary { background: var(--gold); color: var(--espresso); }
+  .btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid rgba(232,213,183,0.35); color: var(--sand-light); }
+  .btn-terra { background: var(--terracotta); color: #fff; }
+  .btn-outline { background: transparent; border: 1.5px solid var(--terracotta); color: var(--terracotta); }
+  .btn-sm { width: auto; padding: 8px 14px; border-radius: 10px; font-size: 12px; }
+  .screen-footer { padding: 12px 18px 16px; border-top: 1px solid var(--sand); background: var(--warm-white); flex-shrink: 0; }
+
+  /* Chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips.row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .chips.row::-webkit-scrollbar { display: none; }
+  .chip {
+    padding: 6px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 500; white-space: nowrap;
+    background: var(--sand-light); color: var(--espresso);
+    border: 1px solid var(--sand);
+  }
+  .chip.on { background: var(--terracotta); color: #fff; border-color: var(--terracotta); }
+  .chip.on-safe { background: var(--safe); color: #fff; border-color: var(--safe); }
+  .chip.on-unsafe { background: var(--unsafe); color: #fff; border-color: var(--unsafe); }
+  .chip .count { opacity: 0.7; margin-left: 3px; }
+
+  /* Forms */
+  .form { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--dusty-rose); font-weight: 600;
+  }
+  .input, .textarea {
+    width: 100%; padding: 11px 12px;
+    background: var(--sand-light); border: 1px solid var(--sand);
+    border-radius: 12px; font-size: 13px; color: var(--espresso);
+    font-family: var(--font-body);
+  }
+  .textarea { resize: none; min-height: 96px; line-height: 1.45; }
+  .input::placeholder, .textarea::placeholder { color: #a8998c; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hint { font-size: 11px; color: var(--muted); }
+  .error { font-size: 11px; color: var(--unsafe); font-weight: 600; }
+  .safety-note {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: var(--sand-light); border: 1px solid var(--sand);
+    border-radius: 12px; padding: 10px 12px; font-size: 11.5px; line-height: 1.45; color: var(--espresso);
   }
 
-  .trip-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.85rem;
-    color: var(--espresso);
-    margin-bottom: 3px;
+  /* Toast */
+  .toast {
+    position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%);
+    background: var(--espresso); color: var(--sand-light);
+    padding: 10px 16px; border-radius: 12px; font-size: 12px; font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25); z-index: 40;
+    width: max-content; max-width: 86%; text-align: center;
   }
 
-  .trip-card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
+  /* ===== Onboarding ===== */
+  .screen-onboarding {
+    background: linear-gradient(160deg, #C4622D 0%, #8B3A1A 40%, #2C1A0E 100%);
+    align-items: center; justify-content: center; padding: 28px; overflow: hidden;
+  }
+  .screen-onboarding::before {
+    content: ''; position: absolute; width: 380px; height: 380px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,168,83,0.25) 0%, transparent 70%);
+    top: -120px; right: -120px;
+  }
+  .sun-logo { width: 90px; height: 90px; margin-bottom: 18px; position: relative; }
+  .sun-circle {
+    width: 48px; height: 48px; background: var(--gold); border-radius: 50%;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    box-shadow: 0 0 24px rgba(212,168,83,0.6);
+  }
+  .sun-ray {
+    position: absolute; width: 5px; height: 14px; background: var(--gold); border-radius: 3px;
+    top: 50%; left: 50%; transform-origin: bottom center; opacity: 0.85;
+  }
+  .app-name-logo { font-family: var(--font-display); font-size: 2.8rem; color: var(--sand-light); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .app-tagline { font-size: 12px; color: rgba(232,213,183,0.75); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 56px; text-align: center; }
+  .onboard-actions { width: 100%; display: flex; flex-direction: column; gap: 10px; position: relative; }
+  .trial-badge { margin-top: 18px; font-size: 11px; color: rgba(232,213,183,0.65); text-align: center; letter-spacing: 0.04em; }
+
+  /* ===== Profile setup ===== */
+  .progress-bar { height: 4px; background: var(--sand); margin-top: 10px; border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 66%; background: linear-gradient(90deg, var(--terracotta), var(--gold)); }
+  .avatar-upload {
+    width: 84px; height: 84px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--terracotta-light), var(--gold));
+    margin: 4px auto 2px; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; position: relative; border: none;
+  }
+  .avatar-plus {
+    position: absolute; bottom: 0; right: 0; width: 26px; height: 26px;
+    background: var(--espresso); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 15px; font-weight: 700;
   }
 
-  .trip-card-date {
-    font-size: 0.58rem;
-    color: #888;
+  /* ===== Discover ===== */
+  .logo-row { display: flex; align-items: center; gap: 8px; flex: 1; }
+  .sun-mini {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: radial-gradient(circle, var(--gold) 40%, var(--terracotta) 100%);
+    box-shadow: 0 0 8px rgba(212,168,83,0.4);
   }
-
-  .trip-card-price {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--terracotta);
+  .logo-text-mini { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+  .header-icons { display: flex; gap: 8px; }
+  .card-stack { flex: 1; min-height: 0; padding: 14px 16px 6px; display: flex; }
+  .swipe-card {
+    width: 100%; border-radius: 24px; overflow: hidden; position: relative;
+    box-shadow: 0 10px 30px rgba(44,26,14,0.18);
+    transition: transform .28s ease, opacity .28s ease;
   }
-
-  .trip-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .swipe-card.out-left { transform: translateX(-120%) rotate(-12deg); opacity: 0; }
+  .swipe-card.out-right { transform: translateX(120%) rotate(12deg); opacity: 0; }
+  .swipe-card.out-up { transform: translateY(-120%); opacity: 0; }
+  .card-photo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding-bottom: 120px; }
+  .avatar-large {
+    width: 110px; height: 110px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.35);
+    display: flex; align-items: center; justify-content: center; font-size: 3.4rem;
   }
-
-  .going-avatars {
-    display: flex;
-    align-items: center;
+  .here-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(255,253,249,0.92); color: var(--espresso);
+    font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 20px;
   }
+  .verified-badge {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(44,26,14,0.55); color: var(--sand-light);
+    font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 20px;
+  }
+  .card-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(44,26,14,0.92) 35%);
+    padding: 44px 18px 18px; color: #fff;
+  }
+  .card-name { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; }
+  .card-meta { font-size: 12px; color: rgba(232,213,183,0.9); margin: 3px 0 10px; }
+  .card-bio { font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.88); margin-bottom: 10px; }
+  .card-trip {
+    display: inline-flex; gap: 5px; align-items: center;
+    background: rgba(212,168,83,0.25); border: 1px solid rgba(212,168,83,0.45);
+    padding: 4px 10px; border-radius: 20px; font-size: 11.5px; color: var(--gold); margin-bottom: 8px;
+  }
+  .card-tags-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .card-tag { padding: 3px 9px; background: rgba(255,255,255,0.16); border-radius: 10px; font-size: 11px; }
+  .swipe-actions { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 10px 16px 12px; flex-shrink: 0; }
+  .action-btn {
+    width: 58px; height: 58px; border-radius: 50%; border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  }
+  .action-btn.small { width: 46px; height: 46px; font-size: 1.2rem; }
+  .btn-pass { background: #fff; color: var(--muted); }
+  .btn-connect { background: var(--terracotta); }
+  .btn-super { background: var(--gold); }
+  .empty {
+    margin: auto; text-align: center; padding: 30px; display: flex; flex-direction: column; gap: 10px; align-items: center;
+  }
+  .empty .big { font-size: 2.6rem; }
+  .empty h3 { font-family: var(--font-display); font-size: 1.2rem; }
+  .empty p { font-size: 12.5px; color: var(--muted); line-height: 1.5; max-width: 28ch; }
 
+  /* Match overlay */
+  .overlay {
+    position: absolute; inset: 0; z-index: 35;
+    background: linear-gradient(170deg, rgba(196,98,45,0.97), rgba(44,26,14,0.98));
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 32px; gap: 14px; text-align: center; color: var(--sand-light);
+  }
+  .overlay h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 600; }
+  .overlay p { font-size: 13px; color: rgba(232,213,183,0.85); line-height: 1.5; }
+  .match-pair { display: flex; margin: 10px 0; }
+  .match-pair div {
+    width: 96px; height: 96px; border-radius: 50%; border: 3px solid var(--gold);
+    display: flex; align-items: center; justify-content: center; font-size: 2.6rem;
+  }
+  .match-pair div + div { margin-left: -18px; }
+  .overlay .btn { max-width: 280px; }
+
+  /* ===== Explore ===== */
+  .location-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px 0; font-size: 12px; }
+  .location-row b { font-weight: 600; }
+  .link-btn { background: none; border: none; color: var(--terracotta); font-weight: 600; font-size: 12px; }
+  .segmented {
+    display: flex; margin: 10px 18px 0; padding: 4px;
+    background: var(--sand-light); border-radius: 14px; border: 1px solid var(--sand);
+  }
+  .segmented button {
+    flex: 1; border: none; background: transparent; padding: 8px 4px; border-radius: 10px;
+    font-size: 12px; font-weight: 600; color: var(--muted);
+  }
+  .segmented button.on { background: var(--warm-white); color: var(--terracotta); box-shadow: 0 1px 4px rgba(44,26,14,0.1); }
+  .section-pad { padding: 12px 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .section-intro { font-size: 12px; color: var(--muted); line-height: 1.45; }
+
+  .act-card { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 15px rgba(44,26,14,0.08); }
+  .act-img { height: 96px; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; position: relative; }
+  .partner-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(255,255,255,0.94); padding: 4px 9px; border-radius: 10px;
+    font-size: 10.5px; font-weight: 700; color: var(--espresso);
+  }
+  .act-type {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(44,26,14,0.55); color: #fff; padding: 4px 9px; border-radius: 10px; font-size: 10.5px; font-weight: 600;
+  }
+  .act-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .act-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; line-height: 1.25; }
+  .act-meta { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--muted); gap: 8px; }
+  .act-price { font-weight: 700; color: var(--terracotta); font-size: 13px; white-space: nowrap; }
+  .act-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 4px; }
+  .interest { font-size: 11px; color: var(--muted); }
+
+  .create-cta {
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, var(--terracotta), var(--terracotta-deep));
+    color: #fff; border: none; border-radius: 18px; padding: 14px 16px; text-align: left;
+  }
+  .create-cta .plus {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: var(--espresso);
+    display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; flex-shrink: 0;
+  }
+  .create-cta b { display: block; font-size: 14px; }
+  .create-cta span { font-size: 11.5px; opacity: 0.85; }
+
+  .meet-card { background: #fff; border-radius: 18px; padding: 14px; box-shadow: 0 4px 15px rgba(44,26,14,0.08); display: flex; flex-direction: column; gap: 10px; }
+  .meet-card.mine { box-shadow: 0 0 0 2px var(--gold), 0 4px 15px rgba(44,26,14,0.08); }
+  .meet-top { display: flex; gap: 12px; }
+  .meet-emoji {
+    width: 52px; height: 52px; border-radius: 14px; background: var(--sand-light);
+    display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;
+  }
+  .meet-head { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .meet-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dusty-rose); font-weight: 700; }
+  .meet-head h3 { font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; line-height: 1.25; }
+  .meet-line { font-size: 11.5px; color: var(--muted); }
+  .meet-desc { font-size: 12.5px; line-height: 1.5; color: #4a3a2e; }
+  .meet-host { font-size: 11.5px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .meet-host b { color: var(--espresso); }
+  .tick { color: var(--safe); font-weight: 700; }
+  .meet-count {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--cream); border-radius: 12px; padding: 8px 10px; font-size: 12px;
+  }
+  .meet-count b { font-size: 15px; color: var(--terracotta); font-variant-numeric: tabular-nums; }
+  .meet-count .sub { color: var(--muted); font-size: 11px; display: block; }
+  .going-avatars { display: flex; }
   .going-avatar {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1.5px solid white;
-    margin-right: -6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.6rem;
+    width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; margin-right: -8px;
+    display: flex; align-items: center; justify-content: center; font-size: 0.7rem;
   }
-
-  .going-count {
-    font-size: 0.55rem;
-    color: #888;
-    margin-left: 10px;
+  .rsvp { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .rsvp-btn {
+    padding: 10px; border-radius: 12px; font-size: 13px; font-weight: 600;
+    border: 1.5px solid var(--sand); background: var(--warm-white); color: var(--espresso);
   }
+  .rsvp-btn.going.on { background: var(--safe); border-color: var(--safe); color: #fff; }
+  .rsvp-btn.not.on { background: var(--espresso); border-color: var(--espresso); color: var(--sand-light); }
 
-  .btn-join {
-    padding: 5px 12px;
-    background: var(--terracotta);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.6rem;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
+  .trip-card { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 15px rgba(44,26,14,0.08); }
+  .trip-card-img { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; position: relative; }
+  .trip-card-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .btn-join { padding: 8px 14px; background: var(--terracotta); color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  .btn-join.joined { background: var(--safe); }
+
+  /* ===== Safe Stays ===== */
+  .search-wrap { padding: 12px 16px 0; }
+  .search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--warm-white); border: 1px solid var(--sand); border-radius: 14px; padding: 0 12px;
   }
+  .search input { flex: 1; border: none; background: transparent; padding: 11px 0; font-size: 13px; color: var(--espresso); font-family: var(--font-body); min-width: 0; }
+  .search input:focus { outline: none; }
+  .stays-filters { padding: 10px 16px 0; }
+  .review-card { background: #fff; border-radius: 18px; padding: 14px; box-shadow: 0 4px 15px rgba(44,26,14,0.08); display: flex; flex-direction: column; gap: 8px; border-left: 4px solid var(--safe); }
+  .review-card.unsafe { border-left-color: var(--unsafe); }
+  .review-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+  .review-place { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; line-height: 1.25; }
+  .review-loc { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .safe-pill {
+    font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 20px; white-space: nowrap;
+    background: var(--safe-bg); color: var(--safe);
+  }
+  .safe-pill.unsafe { background: var(--unsafe-bg); color: var(--unsafe); }
+  .stars { color: var(--gold); font-size: 15px; letter-spacing: 1px; }
+  .stars .off { color: var(--sand); }
+  .rating-row { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--muted); }
+  .review-text { font-size: 12.5px; line-height: 1.5; color: #4a3a2e; }
+  .review-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .rtag { font-size: 10.5px; padding: 3px 8px; border-radius: 10px; background: var(--safe-bg); color: var(--safe); font-weight: 500; }
+  .rtag.bad { background: var(--unsafe-bg); color: var(--unsafe); }
+  .review-foot { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--muted); }
+  .helpful { background: none; border: 1px solid var(--sand); border-radius: 10px; padding: 4px 10px; font-size: 11.5px; color: var(--espresso); }
+  .helpful.on { background: var(--sand-light); border-color: var(--dusty-rose); }
+  .fab {
+    position: absolute; right: 16px; bottom: 16px; z-index: 5;
+    background: var(--terracotta); color: #fff; border: none; border-radius: 28px;
+    padding: 13px 18px; font-size: 13px; font-weight: 600; box-shadow: 0 8px 22px rgba(196,98,45,0.4);
+  }
+  .star-input { display: flex; gap: 6px; }
+  .star-input button { background: none; border: none; font-size: 32px; color: var(--sand); line-height: 1; padding: 0 2px; }
+  .star-input button.on { color: var(--gold); }
+  .safe-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .safe-toggle button {
+    padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--sand); background: var(--warm-white);
+    font-size: 13px; font-weight: 600; color: var(--espresso);
+  }
+  .safe-toggle button.on.safe { background: var(--safe); border-color: var(--safe); color: #fff; }
+  .safe-toggle button.on.unsafe { background: var(--unsafe); border-color: var(--unsafe); color: #fff; }
 
-  /* ===== SCREEN 6: PAYWALL ===== */
+  /* ===== Messages ===== */
+  .matches-row { padding: 12px 18px; border-bottom: 1px solid var(--sand-light); background: var(--warm-white); }
+  .matches-scroll { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; }
+  .match-avatar { display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: none; }
+  .match-circle {
+    width: 54px; height: 54px; border-radius: 50%; border: 2px solid var(--terracotta);
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  }
+  .match-name { font-size: 11px; color: var(--espresso); font-weight: 500; }
+  .chat-item {
+    display: flex; align-items: center; gap: 12px; padding: 10px 18px; width: 100%;
+    background: none; border: none; text-align: left; color: inherit;
+  }
+  .chat-item:hover { background: var(--sand-light); }
+  .chat-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+  .chat-info { flex: 1; min-width: 0; }
+  .chat-name-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .chat-name { font-size: 14px; font-weight: 600; }
+  .chat-time { font-size: 11px; color: #9a8e84; white-space: nowrap; }
+  .chat-trip-tag { font-size: 11px; color: var(--terracotta); font-weight: 600; margin: 1px 0; }
+  .chat-preview { font-size: 12.5px; color: #85776b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .unread-dot { width: 9px; height: 9px; background: var(--terracotta); border-radius: 50%; flex-shrink: 0; }
+
+  .chat-banner { text-align: center; font-size: 11px; color: var(--terracotta); font-weight: 600; padding: 10px; background: var(--sand-light); }
+  .bubbles { padding: 14px 14px 8px; display: flex; flex-direction: column; gap: 8px; }
+  .bubble { max-width: 78%; padding: 9px 12px; border-radius: 18px; font-size: 13px; line-height: 1.4; }
+  .bubble.them { background: #fff; align-self: flex-start; border-bottom-left-radius: 6px; box-shadow: 0 1px 3px rgba(44,26,14,0.08); }
+  .bubble.me { background: var(--terracotta); color: #fff; align-self: flex-end; border-bottom-right-radius: 6px; }
+  .bubble-day { align-self: center; font-size: 10.5px; color: var(--muted); padding: 4px 0; }
+  .composer { display: flex; gap: 8px; padding: 10px 12px 16px; border-top: 1px solid var(--sand); background: var(--warm-white); flex-shrink: 0; }
+  .composer input { flex: 1; min-width: 0; padding: 11px 14px; border-radius: 22px; border: 1px solid var(--sand); background: var(--sand-light); font-size: 13px; font-family: var(--font-body); color: var(--espresso); }
+  .composer button { width: 42px; height: 42px; border-radius: 50%; border: none; background: var(--terracotta); color: #fff; font-size: 16px; flex-shrink: 0; }
+
+  /* ===== Profile ===== */
+  .profile-hero {
+    background: linear-gradient(160deg, #C4622D 0%, #8B3A1A 70%, #2C1A0E 100%);
+    color: var(--sand-light); padding: 18px 18px 22px; text-align: center; position: relative;
+  }
+  .profile-hero .edit {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(255,255,255,0.14); border: 1px solid rgba(232,213,183,0.35); color: var(--sand-light);
+    border-radius: 20px; padding: 6px 12px; font-size: 11.5px; font-weight: 600;
+  }
+  .profile-avatar {
+    width: 92px; height: 92px; border-radius: 50%; margin: 6px auto 10px;
+    background: linear-gradient(135deg, var(--terracotta-light), var(--gold));
+    border: 3px solid var(--sand-light);
+    display: flex; align-items: center; justify-content: center; font-size: 2.4rem;
+  }
+  .profile-hero h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
+  .profile-hero .where { font-size: 12px; color: rgba(232,213,183,0.85); margin-top: 4px; }
+  .verified-line {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
+    background: rgba(255,255,255,0.14); border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 600;
+  }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--warm-white); border-bottom: 1px solid var(--sand); }
+  .stat { padding: 12px 6px; text-align: center; background: none; border: none; color: inherit; }
+  .stat + .stat { border-left: 1px solid var(--sand-light); }
+  .stat b { display: block; font-family: var(--font-display); font-size: 1.35rem; color: var(--terracotta); font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .p-section { padding: 16px 18px 4px; display: flex; flex-direction: column; gap: 8px; }
+  .p-section h3 { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dusty-rose); font-weight: 700; }
+  .bio { font-size: 13px; line-height: 1.55; color: #4a3a2e; }
+  .trip-row {
+    display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 14px; padding: 10px 12px;
+    box-shadow: 0 2px 8px rgba(44,26,14,0.06);
+  }
+  .trip-row .ico { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .trip-row b { display: block; font-size: 13px; }
+  .trip-row span { font-size: 11.5px; color: var(--muted); }
+  .premium-card {
+    display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    background: linear-gradient(135deg, #2C1A0E, #4a2a14); color: var(--sand-light);
+    border: none; border-radius: 16px; padding: 14px;
+  }
+  .premium-card .sun { width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, var(--gold) 40%, var(--terracotta) 100%); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .premium-card b { display: block; font-size: 13.5px; }
+  .premium-card span { font-size: 11.5px; color: rgba(232,213,183,0.7); }
+  .premium-card .arrow { margin-left: auto; color: var(--gold); font-size: 18px; }
+  .settings { margin: 4px 0 20px; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(44,26,14,0.06); }
+  .settings button {
+    display: flex; width: 100%; align-items: center; gap: 12px; padding: 13px 14px;
+    background: none; border: none; font-size: 13px; color: var(--espresso); text-align: left;
+  }
+  .settings button + button { border-top: 1px solid var(--sand-light); }
+  .settings .chev { margin-left: auto; color: var(--muted); }
+
+  /* ===== Paywall ===== */
   .screen-paywall {
     background: linear-gradient(180deg, #2C1A0E 0%, #1a0f06 100%);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-    position: relative;
-    overflow: hidden;
+    color: var(--sand-light); align-items: center; padding: 14px 22px 22px; overflow: hidden;
   }
+  .paywall-close { align-self: flex-end; background: rgba(255,255,255,0.1); color: var(--sand); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 14px; }
+  .paywall-glow { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(196,98,45,0.25) 0%, transparent 70%); top: -60px; left: 50%; transform: translateX(-50%); }
+  .paywall-sun { width: 64px; height: 64px; background: radial-gradient(circle, var(--gold) 40%, var(--terracotta) 100%); border-radius: 50%; box-shadow: 0 0 28px rgba(212,168,83,0.45); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+  .paywall-title { font-family: var(--font-display); font-size: 1.6rem; text-align: center; margin-bottom: 4px; }
+  .paywall-subtitle { font-size: 12px; color: rgba(232,213,183,0.65); text-align: center; margin-bottom: 16px; letter-spacing: 0.04em; }
+  .features-list { width: 100%; margin-bottom: 18px; }
+  .feature-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(232,213,183,0.08); }
+  .feature-icon { width: 28px; height: 28px; border-radius: 50%; background: rgba(196,98,45,0.22); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+  .feature-text { font-size: 12.5px; color: var(--sand); }
+  .pricing-toggle { display: flex; gap: 4px; background: rgba(255,255,255,0.08); border-radius: 14px; padding: 4px; margin-bottom: 14px; width: 100%; }
+  .price-option { flex: 1; padding: 10px 6px; border-radius: 11px; text-align: center; position: relative; background: transparent; border: none; color: #fff; }
+  .price-option.selected { background: var(--terracotta); }
+  .price-option-label { font-size: 11.5px; font-weight: 600; display: block; }
+  .price-option-amount { font-size: 16px; font-weight: 700; display: block; margin: 2px 0; }
+  .price-option-sub { font-size: 10.5px; color: rgba(255,255,255,0.7); display: block; }
+  .save-badge { position: absolute; top: -9px; right: -2px; background: var(--gold); color: var(--espresso); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 8px; letter-spacing: 0.03em; }
+  .btn-start-trial { background: linear-gradient(135deg, var(--terracotta), var(--gold)); color: #fff; font-weight: 700; margin-bottom: 8px; }
+  .trial-note { font-size: 10.5px; color: rgba(232,213,183,0.45); text-align: center; }
 
-  .paywall-glow {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(196,98,45,0.2) 0%, transparent 70%);
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
+  @media (max-width: 860px) {
+    .stage { grid-template-columns: minmax(0, 1fr); gap: 28px; justify-items: center; }
+    .panel { order: 2; width: 100%; max-width: 560px; }
+    .phone-wrap { order: 1; width: 100%; display: flex; justify-content: center; }
   }
-
-  .paywall-sun {
-    width: 52px;
-    height: 52px;
-    background: radial-gradient(circle, var(--gold) 40%, var(--terracotta) 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 25px rgba(212,168,83,0.4);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
+  @media (max-width: 440px) {
+    body { padding-block: 16px; }
+    .phone { width: 100%; height: min(800px, calc(100svh - 32px)); min-height: 640px; padding: 6px; border-radius: 34px; }
+    .phone-inner { border-radius: 28px; }
   }
-
-  .paywall-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--sand-light);
-    text-align: center;
-    margin-bottom: 4px;
+  @media (prefers-reduced-motion: reduce) {
+    .swipe-card { transition: none; }
   }
-
-  .paywall-subtitle {
-    font-size: 0.65rem;
-    color: rgba(232,213,183,0.6);
-    text-align: center;
-    margin-bottom: 16px;
-    letter-spacing: 0.05em;
-  }
-
-  .features-list {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(232,213,183,0.08);
-  }
-
-  .feature-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(196,98,45,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    flex-shrink: 0;
-  }
-
-  .feature-text {
-    font-size: 0.65rem;
-    color: var(--sand);
-  }
-
-  .pricing-toggle {
-    display: flex;
-    background: rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 3px;
-    margin-bottom: 12px;
-    width: 100%;
-  }
-
-  .price-option {
-    flex: 1;
-    padding: 7px 6px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .price-option.selected {
-    background: var(--terracotta);
-  }
-
-  .price-option-label {
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: white;
-    display: block;
-  }
-
-  .price-option-amount {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: white;
-    display: block;
-  }
-
-  .price-option-sub {
-    font-size: 0.5rem;
-    color: rgba(255,255,255,0.7);
-    display: block;
-  }
-
-  .save-badge {
-    position: absolute;
-    top: -8px;
-    right: -4px;
-    background: var(--gold);
-    color: var(--espresso);
-    font-size: 0.45rem;
-    font-weight: 800;
-    padding: 2px 5px;
-    border-radius: 8px;
-    letter-spacing: 0.03em;
-  }
-
-  .btn-start-trial {
-    width: 100%;
-    padding: 13px;
-    background: linear-gradient(135deg, var(--terracotta), var(--gold));
-    border: none;
-    border-radius: 14px;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 700;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    margin-bottom: 8px;
-  }
-
-  .trial-note {
-    font-size: 0.55rem;
-    color: rgba(232,213,183,0.4);
-    text-align: center;
-    letter-spacing: 0.03em;
-  }
-
 </style>
 </head>
 <body>
 
-<h1 class="page-title">Solmia</h1>
-<p class="page-subtitle">App Design Mockup — Warm & Wanderlust</p>
+<div class="stage">
 
-<div class="screens-grid">
-
-  <!-- SCREEN 1: Onboarding -->
-  <div class="screen-wrapper">
-    <span class="screen-label">Onboarding</span>
-    <div class="phone">
-      <div class="phone-inner">
-        <div class="notch"></div>
-        <div class="screen-onboarding">
-          <div class="sun-logo">
-            <div class="sun-circle"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(0deg) translateY(-14px);"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(45deg) translateY(-14px);"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(90deg) translateY(-14px);"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(135deg) translateY(-14px);"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(180deg) translateY(-14px);"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(225deg) translateY(-14px);"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(270deg) translateY(-14px);"></div>
-            <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(315deg) translateY(-14px);"></div>
-          </div>
-          <div class="app-name-logo">Solmia</div>
-          <div class="app-tagline">Wander together. Shine together.</div>
-          <button class="btn-primary">Create my profile</button>
-          <button class="btn-secondary">Sign in</button>
-          <div class="trial-badge">✨ 7-day free trial · No credit card needed</div>
-        </div>
-      </div>
+  <aside class="panel">
+    <div>
+      <h1>Solmia</h1>
+      <p class="subtitle">Clickable app mockup · Warm &amp; Wanderlust</p>
+      <p class="intro">Tap through the phone like the real app. Buttons, tabs, the bottom menu, RSVPs, the review form and chat all work. Use the list below to jump straight to any screen.</p>
     </div>
-  </div>
 
-  <!-- SCREEN 2: Profile Setup -->
-  <div class="screen-wrapper">
-    <span class="screen-label">Profile Setup</span>
-    <div class="phone">
-      <div class="phone-inner">
-        <div class="notch"></div>
-        <div class="status-bar">
-          <span>9:41</span>
-          <span style="margin-left:30px"></span>
-          <span>●●●</span>
-        </div>
-        <div class="screen-profile">
-          <div class="profile-header">
-            <h2>Build your Solmia profile</h2>
-            <p>Step 2 of 3 — Travel & Interests</p>
-            <div class="progress-bar"><div class="progress-fill"></div></div>
-          </div>
-          <div class="profile-content">
-            <div class="avatar-upload">
-              🌸
-              <div class="avatar-plus">+</div>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Your name & age</label>
-              <input class="form-input" value="Sofia, 31" readonly />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Home city</label>
-              <input class="form-input" value="New York, USA" readonly />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Next trip destination</label>
-              <input class="form-input" value="✈️  Bali, Indonesia — March 2025" readonly />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Trip budget</label>
-              <input class="form-input" value="💰  $2,000 – $4,000" readonly />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Travel style</label>
-              <div class="travel-tags">
-                <span class="tag tag-active">Solo explorer</span>
-                <span class="tag tag-active">Culture</span>
-                <span class="tag tag-inactive">Luxury</span>
-                <span class="tag tag-active">Adventure</span>
-                <span class="tag tag-inactive">Beach</span>
-              </div>
-            </div>
-          </div>
-          <div class="profile-footer">
-            <button class="btn-continue">Continue →</button>
-          </div>
-        </div>
-      </div>
+    <div>
+      <h2>Screens</h2>
+      <div class="screen-index" id="screenIndex"></div>
     </div>
-  </div>
 
-  <!-- SCREEN 3: Swipe Discovery -->
-  <div class="screen-wrapper">
-    <span class="screen-label">Discover</span>
+    <div class="notes">
+      <h3 id="notesTitle">Onboarding</h3>
+      <ul id="notesList"></ul>
+    </div>
+
+    <p class="fineprint">All people, places, reviews and prices are sample content for the mockup. Partner listings for GetYourGuide and Worldpackers are placeholders showing where their inventory would appear; real listings would come from each partner's API. Nothing you enter is saved or sent anywhere.</p>
+  </aside>
+
+  <div class="phone-wrap">
     <div class="phone">
-      <div class="phone-inner">
+      <div class="phone-inner" id="app">
         <div class="notch"></div>
-        <div class="status-bar">
-          <span>9:41</span>
-          <span style="margin-left:30px"></span>
-          <span>●●●</span>
-        </div>
-        <div class="screen-swipe">
-          <div class="swipe-header">
-            <div class="header-logo-small">
-              <div class="sun-mini"></div>
-              <span class="logo-text-mini">Solmia</span>
+        <div class="status-bar" id="statusBar"><span>9:41</span><span>●●● ᯤ ▮</span></div>
+
+        <div class="screens">
+
+          <!-- ONBOARDING -->
+          <section class="screen screen-onboarding" data-screen="onboarding">
+            <div class="sun-logo" aria-hidden="true">
+              <div class="sun-circle"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(0deg) translateY(-18px);"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(45deg) translateY(-18px);"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(90deg) translateY(-18px);"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(135deg) translateY(-18px);"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(180deg) translateY(-18px);"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(225deg) translateY(-18px);"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(270deg) translateY(-18px);"></div>
+              <div class="sun-ray" style="transform: translateX(-50%) translateY(-100%) rotate(315deg) translateY(-18px);"></div>
             </div>
-            <div class="header-icons">
-              <div class="icon-btn">🔍</div>
-              <div class="icon-btn">⚙️</div>
+            <div class="app-name-logo">Solmia</div>
+            <div class="app-tagline">Wander together. Shine together.</div>
+            <div class="onboard-actions">
+              <button class="btn btn-primary" data-go="setup">Create my profile</button>
+              <button class="btn btn-secondary" data-tab="discover">Sign in</button>
             </div>
-          </div>
-          <div class="card-stack">
-            <div class="swipe-card">
-              <div class="card-bg">
-                <div class="card-photo-placeholder">
-                  <div class="avatar-large">🌺</div>
+            <div class="trial-badge">✨ 7-day free trial · No credit card needed</div>
+          </section>
+
+          <!-- PROFILE SETUP -->
+          <section class="screen" data-screen="setup" hidden>
+            <div class="app-header" style="flex-direction: column; align-items: stretch; gap: 0;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <button class="back-btn" data-back aria-label="Back">‹</button>
+                <div class="titles">
+                  <h2>Build your profile</h2>
+                  <p>Step 2 of 3 · Travel &amp; interests</p>
                 </div>
-                <div class="card-overlay">
-                  <div class="card-name">Amara, 29</div>
-                  <div class="card-meta">
-                    <span>📍 London, UK</span>
-                    <span>·</span>
-                    <span>2 mi away</span>
-                  </div>
-                  <div class="card-trip">✈️ Next trip: Bali, March</div>
-                  <div class="card-tags-row">
-                    <span class="card-tag">Solo explorer</span>
-                    <span class="card-tag">Adventure</span>
-                    <span class="card-tag">Culture</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill"></div></div>
+            </div>
+            <div class="scroll">
+              <div class="form">
+                <button class="avatar-upload" data-toast="Photo picker opens here" aria-label="Add photo">🌸<span class="avatar-plus">+</span></button>
+                <div class="field-row">
+                  <div class="field"><label class="label" for="su-name">First name</label><input class="input" id="su-name" value="Sofia"></div>
+                  <div class="field"><label class="label" for="su-age">Age</label><input class="input" id="su-age" value="31" inputmode="numeric"></div>
+                </div>
+                <div class="field"><label class="label" for="su-city">Home city</label><input class="input" id="su-city" value="New York, USA"></div>
+                <div class="field"><label class="label" for="su-trip">Next trip destination</label><input class="input" id="su-trip" value="✈️  Bali, Indonesia · March 2027"></div>
+                <div class="field"><label class="label" for="su-budget">Trip budget</label><input class="input" id="su-budget" value="💰  $2,000 – $4,000"></div>
+                <div class="field">
+                  <span class="label">Travel style · tap to choose</span>
+                  <div class="chips" data-multi>
+                    <button class="chip on">Solo explorer</button>
+                    <button class="chip on">Culture</button>
+                    <button class="chip">Luxury</button>
+                    <button class="chip on">Adventure</button>
+                    <button class="chip">Beach</button>
+                    <button class="chip">Foodie</button>
+                    <button class="chip">Digital nomad</button>
+                    <button class="chip">Wellness</button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="swipe-actions">
-            <button class="action-btn btn-pass">✕</button>
-            <button class="action-btn btn-super">⭐</button>
-            <button class="action-btn btn-connect">☀️</button>
-          </div>
-          <div class="bottom-nav">
-            <div class="nav-item active">
-              <span class="nav-icon">☀️</span>
-              <span>Discover</span>
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon">🌍</span>
-              <span>Trips</span>
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon">💬</span>
-              <span>Messages</span>
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon">👤</span>
-              <span>Profile</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            <div class="screen-footer"><button class="btn btn-terra" data-action="finish-setup">Continue →</button></div>
+          </section>
 
-  <!-- SCREEN 4: Messages -->
-  <div class="screen-wrapper">
-    <span class="screen-label">Messages</span>
-    <div class="phone">
-      <div class="phone-inner">
-        <div class="notch"></div>
-        <div class="status-bar">
-          <span>9:41</span>
-          <span style="margin-left:30px"></span>
-          <span>●●●</span>
-        </div>
-        <div class="screen-messages">
-          <div class="messages-header">
-            <h2>Messages</h2>
-            <p>Your connections</p>
-          </div>
-          <div class="matches-row">
-            <div class="matches-label">New matches</div>
-            <div class="matches-scroll">
-              <div class="match-avatar">
-                <div class="match-circle" style="background: linear-gradient(135deg, #C4622D, #D4A853);">🌸</div>
-                <span class="match-name">Amara</span>
-              </div>
-              <div class="match-avatar">
-                <div class="match-circle" style="background: linear-gradient(135deg, #8A9E7E, #5B7A52);">🌿</div>
-                <span class="match-name">Priya</span>
-              </div>
-              <div class="match-avatar">
-                <div class="match-circle" style="background: linear-gradient(135deg, #5B8DB8, #2C5F8A);">🌊</div>
-                <span class="match-name">Zara</span>
-              </div>
-              <div class="match-avatar">
-                <div class="match-circle" style="background: linear-gradient(135deg, #C4876A, #8B4A2A);">🦋</div>
-                <span class="match-name">Lucia</span>
+          <!-- DISCOVER -->
+          <section class="screen" data-screen="discover" hidden>
+            <div class="app-header">
+              <div class="logo-row"><div class="sun-mini"></div><span class="logo-text-mini">Solmia</span></div>
+              <div class="header-icons">
+                <button class="icon-btn" data-toast="Filters: age, distance, trip dates" aria-label="Filters">🔍</button>
+                <button class="icon-btn" data-tab="profile" aria-label="Settings">⚙️</button>
               </div>
             </div>
-          </div>
-          <div class="chat-list">
-            <div class="chat-item">
-              <div class="chat-avatar" style="background: linear-gradient(135deg, #C4622D, #D4A853);">🌸</div>
-              <div class="chat-info">
-                <div class="chat-name-row">
-                  <span class="chat-name">Amara</span>
-                  <span class="chat-time">2m ago</span>
-                </div>
-                <div class="chat-trip-tag">✈️ Both going to Bali!</div>
-                <div class="chat-preview">Omg yes we should totally meet up!</div>
-              </div>
-              <div class="unread-dot"></div>
+            <div class="card-stack" id="cardStack"></div>
+            <div class="swipe-actions" id="swipeActions">
+              <button class="action-btn btn-pass" data-action="pass" aria-label="Pass">✕</button>
+              <button class="action-btn small btn-super" data-action="super" aria-label="Super Shine">⭐</button>
+              <button class="action-btn btn-connect" data-action="connect" aria-label="Connect">☀️</button>
             </div>
-            <div class="chat-item">
-              <div class="chat-avatar" style="background: linear-gradient(135deg, #8A9E7E, #5B7A52);">🌿</div>
-              <div class="chat-info">
-                <div class="chat-name-row">
-                  <span class="chat-name">Priya</span>
-                  <span class="chat-time">1h ago</span>
-                </div>
-                <div class="chat-trip-tag">✈️ Both going to Morocco!</div>
-                <div class="chat-preview">Have you been to Marrakech before?</div>
-              </div>
-            </div>
-            <div class="chat-item">
-              <div class="chat-avatar" style="background: linear-gradient(135deg, #5B8DB8, #2C5F8A);">🌊</div>
-              <div class="chat-info">
-                <div class="chat-name-row">
-                  <span class="chat-name">Solmia Girls Trip 🌍</span>
-                  <span class="chat-time">3h ago</span>
-                </div>
-                <div class="chat-preview">Zara: Who's joining the Bali retreat?</div>
-              </div>
-              <div class="unread-dot"></div>
-            </div>
-          </div>
-          <div class="bottom-nav">
-            <div class="nav-item">
-              <span class="nav-icon">☀️</span>
-              <span>Discover</span>
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon">🌍</span>
-              <span>Trips</span>
-            </div>
-            <div class="nav-item active">
-              <span class="nav-icon">💬</span>
-              <span>Messages</span>
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon">👤</span>
-              <span>Profile</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          </section>
 
-  <!-- SCREEN 5: Travel/Events -->
-  <div class="screen-wrapper">
-    <span class="screen-label">Group Trips</span>
-    <div class="phone">
-      <div class="phone-inner">
-        <div class="notch"></div>
-        <div class="status-bar">
-          <span>9:41</span>
-          <span style="margin-left:30px"></span>
-          <span>●●●</span>
-        </div>
-        <div class="screen-travel">
-          <div class="travel-header">
-            <h2>Group Adventures</h2>
-            <p>Curated trips for Solmia women</p>
-          </div>
-          <div class="filter-tabs">
-            <span class="filter-tab active">All trips</span>
-            <span class="filter-tab inactive">YourGuide</span>
-            <span class="filter-tab inactive">Worldpackers</span>
-          </div>
-          <div class="travel-cards">
-            <div class="trip-card">
-              <div class="trip-card-img trip-card-img-1">
-                🏛️
-                <span class="trip-partner-badge">YourGuide</span>
+          <!-- EXPLORE -->
+          <section class="screen" data-screen="explore" hidden>
+            <div class="app-header">
+              <div class="titles">
+                <h2>Explore</h2>
+                <p>Things to do with Solmia women near you</p>
               </div>
-              <div class="trip-card-body">
-                <div class="trip-card-title">Santorini Sunset Retreat</div>
-                <div class="trip-card-meta">
-                  <span class="trip-card-date">📅 Apr 12 – Apr 19, 2025</span>
-                  <span class="trip-card-price">From $1,200</span>
+            </div>
+            <div class="scroll">
+              <div class="location-row">
+                <span>📍 <b>Lisbon, Portugal</b> · within 10 mi</span>
+                <button class="link-btn" data-toast="Location picker opens here">Change</button>
+              </div>
+              <div class="segmented" role="tablist">
+                <button data-explore="activities" role="tab">Local activities</button>
+                <button data-explore="meetups" role="tab">Meetups</button>
+                <button data-explore="trips" role="tab">Group trips</button>
+              </div>
+
+              <div class="section-pad" data-pane="activities">
+                <p class="section-intro">Tours and experiences from our partners, plus volunteer stays you can do with other women in the area.</p>
+                <div class="chips row" id="partnerChips">
+                  <button class="chip" data-partner="all">All</button>
+                  <button class="chip" data-partner="GetYourGuide">GetYourGuide</button>
+                  <button class="chip" data-partner="Worldpackers">Worldpackers</button>
                 </div>
-                <div class="trip-card-footer">
-                  <div style="display:flex; align-items:center;">
-                    <div class="going-avatars">
-                      <div class="going-avatar" style="background:#C4622D;">🌸</div>
-                      <div class="going-avatar" style="background:#8A9E7E;">🌿</div>
-                      <div class="going-avatar" style="background:#5B8DB8;">🌊</div>
-                    </div>
-                    <span class="going-count">+14 going</span>
+                <div id="activityList" style="display:flex; flex-direction:column; gap:12px;"></div>
+              </div>
+
+              <div class="section-pad" data-pane="meetups" hidden>
+                <button class="create-cta" data-go="create-meetup">
+                  <span class="plus">+</span>
+                  <span><b>Create a meetup</b><span>Invite any Solmia woman in Lisbon</span></span>
+                </button>
+                <div id="meetupList" style="display:flex; flex-direction:column; gap:12px;"></div>
+              </div>
+
+              <div class="section-pad" data-pane="trips" hidden>
+                <p class="section-intro">Curated multi-day trips. Join one and you'll be added to the trip's group chat.</p>
+                <div id="tripList" style="display:flex; flex-direction:column; gap:12px;"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- CREATE MEETUP -->
+          <section class="screen" data-screen="create-meetup" hidden>
+            <div class="app-header">
+              <button class="back-btn" data-back aria-label="Back">‹</button>
+              <div class="titles"><h2>Create a meetup</h2><p>Visible to Solmia women within 10 mi</p></div>
+            </div>
+            <form class="scroll" id="meetupForm" novalidate>
+              <div class="form">
+                <div class="field">
+                  <label class="label" for="mf-title">What are you doing?</label>
+                  <input class="input" id="mf-title" placeholder="e.g. Pastel de nata crawl in Belém" maxlength="60">
+                </div>
+                <div class="field">
+                  <span class="label">Type</span>
+                  <div class="chips" id="mf-cat" data-single>
+                    <button type="button" class="chip on" data-emoji="🍷">Food &amp; drinks</button>
+                    <button type="button" class="chip" data-emoji="🥾">Outdoors</button>
+                    <button type="button" class="chip" data-emoji="🎨">Culture</button>
+                    <button type="button" class="chip" data-emoji="🧘‍♀️">Wellness</button>
+                    <button type="button" class="chip" data-emoji="💃">Nightlife</button>
+                    <button type="button" class="chip" data-emoji="💻">Coworking</button>
                   </div>
-                  <button class="btn-join">Join trip</button>
                 </div>
-              </div>
-            </div>
-            <div class="trip-card">
-              <div class="trip-card-img trip-card-img-2">
-                🌴
-                <span class="trip-partner-badge">Worldpackers</span>
-              </div>
-              <div class="trip-card-body">
-                <div class="trip-card-title">Bali Women's Wellness Week</div>
-                <div class="trip-card-meta">
-                  <span class="trip-card-date">📅 Mar 5 – Mar 12, 2025</span>
-                  <span class="trip-card-price">From $890</span>
+                <div class="field-row">
+                  <div class="field"><label class="label" for="mf-date">Date</label><input class="input" id="mf-date" type="date" value="2026-10-24"></div>
+                  <div class="field"><label class="label" for="mf-time">Time</label><input class="input" id="mf-time" type="time" value="18:30"></div>
                 </div>
-                <div class="trip-card-footer">
-                  <div style="display:flex; align-items:center;">
-                    <div class="going-avatars">
-                      <div class="going-avatar" style="background:#C4876A;">🦋</div>
-                      <div class="going-avatar" style="background:#C4622D;">🌺</div>
-                    </div>
-                    <span class="going-count">+8 going</span>
+                <div class="field">
+                  <label class="label" for="mf-place">Meeting spot</label>
+                  <input class="input" id="mf-place" placeholder="e.g. Pastéis de Belém, front entrance">
+                </div>
+                <div class="field">
+                  <label class="label" for="mf-desc">Details</label>
+                  <textarea class="textarea" id="mf-desc" placeholder="What to expect, what to bring, how to find you"></textarea>
+                </div>
+                <div class="field">
+                  <span class="label">Group size</span>
+                  <div class="chips" id="mf-size" data-single>
+                    <button type="button" class="chip" data-size="4">Up to 4</button>
+                    <button type="button" class="chip on" data-size="8">Up to 8</button>
+                    <button type="button" class="chip" data-size="15">Up to 15</button>
+                    <button type="button" class="chip" data-size="0">No limit</button>
                   </div>
-                  <button class="btn-join">Join trip</button>
                 </div>
+                <div class="safety-note"><span>🛡️</span><span>Pick a public place for the first meetup. Only verified members can RSVP, and the exact spot is shared with people who tap Going.</span></div>
+                <p class="error" id="mf-error" hidden>Add a title and a meeting spot to post your meetup.</p>
+              </div>
+            </form>
+            <div class="screen-footer"><button class="btn btn-terra" data-action="post-meetup">Post meetup</button></div>
+          </section>
+
+          <!-- SAFE STAYS -->
+          <section class="screen" data-screen="stays" hidden>
+            <div class="app-header">
+              <div class="titles">
+                <h2>Safe Stays</h2>
+                <p>Reviews by women who've stayed there solo</p>
               </div>
             </div>
-          </div>
-          <div class="bottom-nav">
-            <div class="nav-item">
-              <span class="nav-icon">☀️</span>
-              <span>Discover</span>
+            <div class="scroll" style="position:relative;">
+              <div class="search-wrap">
+                <label class="search" for="staySearch">🔍<input id="staySearch" placeholder="Search a city or place" autocomplete="off"></label>
+              </div>
+              <div class="stays-filters"><div class="chips row" id="stayFilters"></div></div>
+              <div class="section-pad" id="reviewList" style="padding-bottom: 80px;"></div>
             </div>
-            <div class="nav-item active">
-              <span class="nav-icon">🌍</span>
-              <span>Trips</span>
+            <button class="fab" data-go="write-review">✍️ Write a review</button>
+          </section>
+
+          <!-- WRITE REVIEW -->
+          <section class="screen" data-screen="write-review" hidden>
+            <div class="app-header">
+              <button class="back-btn" data-back aria-label="Back">‹</button>
+              <div class="titles"><h2>Review a stay</h2><p>Help the next woman travelling solo</p></div>
             </div>
-            <div class="nav-item">
-              <span class="nav-icon">💬</span>
-              <span>Messages</span>
+            <form class="scroll" id="reviewForm" novalidate>
+              <div class="form">
+                <div class="field">
+                  <label class="label" for="rf-place">Where did you stay?</label>
+                  <input class="input" id="rf-place" placeholder="Hotel, hostel or rental name">
+                </div>
+                <div class="field">
+                  <label class="label" for="rf-city">City &amp; country</label>
+                  <input class="input" id="rf-city" placeholder="e.g. Lisbon, Portugal">
+                </div>
+                <div class="field">
+                  <span class="label">Type of stay</span>
+                  <div class="chips" id="rf-type" data-single>
+                    <button type="button" class="chip on">Hotel</button>
+                    <button type="button" class="chip">Hostel</button>
+                    <button type="button" class="chip">Rental</button>
+                    <button type="button" class="chip">Guesthouse</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <span class="label">Overall rating</span>
+                  <div class="star-input" id="rf-stars" role="radiogroup" aria-label="Star rating"></div>
+                  <span class="hint" id="rf-stars-label">Tap a star</span>
+                </div>
+                <div class="field">
+                  <span class="label">Did you feel safe as a woman travelling solo?</span>
+                  <div class="safe-toggle">
+                    <button type="button" class="safe" data-safe="1">🛡️ Yes, safe</button>
+                    <button type="button" class="unsafe" data-safe="0">⚠️ No, not safe</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <span class="label">What stood out? (optional)</span>
+                  <div class="chips" id="rf-tags" data-multi></div>
+                </div>
+                <div class="field">
+                  <label class="label" for="rf-text">Tell us why</label>
+                  <textarea class="textarea" id="rf-text" maxlength="600" placeholder="What made you feel safe or unsafe? Think about the neighbourhood at night, staff, locks, other guests, and getting there."></textarea>
+                  <span class="hint" id="rf-count">0 / 600</span>
+                </div>
+                <p class="error" id="rf-error" hidden></p>
+              </div>
+            </form>
+            <div class="screen-footer"><button class="btn btn-terra" data-action="post-review">Post review</button></div>
+          </section>
+
+          <!-- MESSAGES -->
+          <section class="screen" data-screen="messages" hidden>
+            <div class="app-header">
+              <div class="titles"><h2>Messages</h2><p>Your connections</p></div>
             </div>
-            <div class="nav-item">
-              <span class="nav-icon">👤</span>
-              <span>Profile</span>
+            <div class="scroll">
+              <div class="matches-row">
+                <div class="label" style="margin-bottom:8px;">New matches</div>
+                <div class="matches-scroll" id="matchesRow"></div>
+              </div>
+              <div id="chatList" style="padding: 6px 0;"></div>
             </div>
-          </div>
+          </section>
+
+          <!-- CHAT -->
+          <section class="screen" data-screen="chat" hidden>
+            <div class="app-header">
+              <button class="back-btn" data-back aria-label="Back">‹</button>
+              <div class="chat-avatar" id="chatAvatar" style="width:40px; height:40px; font-size:1.1rem;"></div>
+              <div class="titles"><h2 id="chatName" style="font-size:1.1rem;"></h2><p id="chatSub"></p></div>
+              <button class="icon-btn" data-toast="Report, block or share your location" aria-label="Safety options">🛡️</button>
+            </div>
+            <div class="chat-banner" id="chatBanner"></div>
+            <div class="scroll" id="chatScroll"><div class="bubbles" id="bubbles"></div></div>
+            <form class="composer" id="composer">
+              <input id="composerInput" placeholder="Message…" autocomplete="off">
+              <button type="submit" aria-label="Send">➤</button>
+            </form>
+          </section>
+
+          <!-- PROFILE -->
+          <section class="screen" data-screen="profile" hidden>
+            <div class="scroll" id="profileBody"></div>
+          </section>
+
+          <!-- PAYWALL -->
+          <section class="screen screen-paywall" data-screen="paywall" hidden>
+            <div class="paywall-glow"></div>
+            <button class="paywall-close" data-back aria-label="Close">✕</button>
+            <div class="paywall-sun">☀️</div>
+            <div class="paywall-title">Unlock all of Solmia</div>
+            <div class="paywall-subtitle">7 days free · Cancel anytime</div>
+            <div class="features-list">
+              <div class="feature-item"><div class="feature-icon">📍</div><span class="feature-text">See who's nearby and where they're headed</span></div>
+              <div class="feature-item"><div class="feature-icon">⭐</div><span class="feature-text">Unlimited Super Shines</span></div>
+              <div class="feature-item"><div class="feature-icon">📅</div><span class="feature-text">Create unlimited local meetups</span></div>
+              <div class="feature-item"><div class="feature-icon">🌍</div><span class="feature-text">Group trips &amp; partner discounts</span></div>
+              <div class="feature-item"><div class="feature-icon">🔒</div><span class="feature-text">Advanced safety &amp; ID verification</span></div>
+            </div>
+            <div class="pricing-toggle">
+              <button class="price-option" data-plan="monthly">
+                <span class="price-option-label">Monthly</span>
+                <span class="price-option-amount">$24.99</span>
+                <span class="price-option-sub">per month</span>
+              </button>
+              <button class="price-option" data-plan="yearly">
+                <span class="save-badge">SAVE 8%</span>
+                <span class="price-option-label">Yearly</span>
+                <span class="price-option-amount">$275</span>
+                <span class="price-option-sub">$22.92/mo</span>
+              </button>
+            </div>
+            <button class="btn btn-start-trial" data-action="start-trial">Start my free 7-day trial</button>
+            <div class="trial-note" id="trialNote">Then $275/year · No charge until trial ends</div>
+          </section>
+
         </div>
+
+        <nav class="bottom-nav" id="bottomNav" hidden>
+          <button class="nav-item" data-tab="discover"><span class="nav-icon">☀️</span><span>Discover</span></button>
+          <button class="nav-item" data-tab="explore"><span class="nav-icon">🌍</span><span>Explore</span></button>
+          <button class="nav-item" data-tab="stays"><span class="nav-icon">🛡️</span><span>Safe Stays</span></button>
+          <button class="nav-item" data-tab="messages"><span class="nav-icon">💬</span><span>Messages</span><span class="nav-badge" id="msgBadge" hidden></span></button>
+          <button class="nav-item" data-tab="profile"><span class="nav-icon">👤</span><span>Profile</span></button>
+        </nav>
+
+        <div class="overlay" id="matchOverlay" hidden>
+          <div class="match-pair"><div style="background: linear-gradient(135deg, var(--terracotta-light), var(--gold));">🌸</div><div id="matchEmoji"></div></div>
+          <h2>It's a match!</h2>
+          <p id="matchText"></p>
+          <button class="btn btn-primary" data-action="match-message">Send a message</button>
+          <button class="btn btn-secondary" data-action="match-close">Keep exploring</button>
+        </div>
+
+        <div class="toast" id="toast" hidden></div>
       </div>
     </div>
   </div>
-
-  <!-- SCREEN 6: Paywall -->
-  <div class="screen-wrapper">
-    <span class="screen-label">Paywall</span>
-    <div class="phone">
-      <div class="phone-inner">
-        <div class="notch"></div>
-        <div class="status-bar" style="background: #2C1A0E; color: var(--sand);">
-          <span>9:41</span>
-          <span style="margin-left:30px"></span>
-          <span>●●●</span>
-        </div>
-        <div class="screen-paywall">
-          <div class="paywall-glow"></div>
-          <div class="paywall-sun">☀️</div>
-          <div class="paywall-title">Unlock all of Solmia</div>
-          <div class="paywall-subtitle">7 days free · Cancel anytime</div>
-          <div class="features-list">
-            <div class="feature-item">
-              <div class="feature-icon">📍</div>
-              <span class="feature-text">Geolocation & proximity matching</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">📅</div>
-              <span class="feature-text">Local & global events</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">🌍</div>
-              <span class="feature-text">Group travel & partner trips</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">🔔</div>
-              <span class="feature-text">Real-time notifications</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">🔒</div>
-              <span class="feature-text">Advanced safety & verification</span>
-            </div>
-          </div>
-          <div class="pricing-toggle">
-            <div class="price-option" style="background: rgba(255,255,255,0.05);">
-              <span class="price-option-label">Monthly</span>
-              <span class="price-option-amount">$24.99</span>
-              <span class="price-option-sub">per month</span>
-            </div>
-            <div class="price-option selected" style="position:relative;">
-              <span class="save-badge">SAVE 8%</span>
-              <span class="price-option-label">Yearly</span>
-              <span class="price-option-amount">$275</span>
-              <span class="price-option-sub">$22.92/mo</span>
-            </div>
-          </div>
-          <button class="btn-start-trial">Start my free 7-day trial</button>
-          <div class="trial-note">No charge until trial ends · Cancel anytime</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
 
+<script>
+(function () {
+  // ---------- Sample data ----------
+  const people = [
+    { id: 'amara', name: 'Amara', age: 29, emoji: '🌺', city: 'London, UK', here: 'In Lisbon until Oct 20', dist: '0.8 mi away', trip: 'Bali, March 2027', bio: 'Product designer on a slow-travel sabbatical. Looking for a sunset and pastel de nata buddy.', tags: ['Solo explorer', 'Adventure', 'Culture'], bg: 'linear-gradient(160deg, #D4956A 0%, #C4622D 40%, #8B3A1A 100%)', match: true },
+    { id: 'priya', name: 'Priya', age: 28, emoji: '🌿', city: 'Toronto, Canada', here: 'In Lisbon until Oct 14', dist: '1.2 mi away', trip: 'Marrakech, January', bio: 'Nurse, runner, hostel-hopper. I plan everything in spreadsheets so you don\'t have to.', tags: ['Wellness', 'Foodie', 'Budget'], bg: 'linear-gradient(160deg, #A9BC9C 0%, #8A9E7E 40%, #4E6645 100%)', match: false },
+    { id: 'zara', name: 'Zara', age: 33, emoji: '🌊', city: 'Sydney, Australia', here: 'Lives in Lisbon', dist: '2.4 mi away', trip: 'Lisbon → Porto, November', bio: 'Surfer and remote marketer. Happy to show newcomers the best miradouros.', tags: ['Beach', 'Digital nomad', 'Adventure'], bg: 'linear-gradient(160deg, #7FA8CC 0%, #5B8DB8 40%, #2C5F8A 100%)', match: true },
+    { id: 'lucia', name: 'Lucia', age: 26, emoji: '🦋', city: 'Madrid, Spain', here: 'In Lisbon this weekend', dist: '3.1 mi away', trip: 'Santorini, April 2027', bio: 'Art history grad chasing museums, fado and good wine.', tags: ['Culture', 'Nightlife', 'Foodie'], bg: 'linear-gradient(160deg, #D8A58C 0%, #C4876A 40%, #8B4A2A 100%)', match: false },
+    { id: 'mei', name: 'Mei', age: 30, emoji: '🌙', city: 'Singapore', here: 'In Lisbon until Nov 2', dist: '1.9 mi away', trip: 'Bali, March 2027', bio: 'Software engineer working from cafés. Always up for a coworking day.', tags: ['Digital nomad', 'Wellness', 'Culture'], bg: 'linear-gradient(160deg, #B79BC4 0%, #8C6A9E 40%, #4F3560 100%)', match: true }
+  ];
+
+  const activities = [
+    { partner: 'GetYourGuide', type: 'Day trip', emoji: '🏰', bg: 'linear-gradient(135deg, #7FA8CC, #2C5F8A)', title: 'Sintra, Pena Palace & Cascais small-group day trip', meta: '⭐ 4.8 (12,400) · 8 hours', price: 'From €69', interested: 6 },
+    { partner: 'GetYourGuide', type: 'Food tour', emoji: '🍷', bg: 'linear-gradient(135deg, #C4622D, #8B3A1A)', title: 'Alfama food & wine walking tour', meta: '⭐ 4.9 (3,100) · 3.5 hours', price: 'From €55', interested: 9 },
+    { partner: 'Worldpackers', type: 'Volunteer stay', emoji: '🏄‍♀️', bg: 'linear-gradient(135deg, #8A9E7E, #4E6645)', title: 'Help at a surf hostel in Ericeira', meta: '2–4 weeks · 20 hrs/week', price: 'Free stay + breakfast', interested: 4 },
+    { partner: 'GetYourGuide', type: 'Experience', emoji: '⛵', bg: 'linear-gradient(135deg, #D4A853, #C4622D)', title: 'Sunset sailing on the Tagus River', meta: '⭐ 4.8 (5,800) · 2 hours', price: 'From €45', interested: 11 },
+    { partner: 'Worldpackers', type: 'Volunteer stay', emoji: '🌱', bg: 'linear-gradient(135deg, #A9BC9C, #5B7A52)', title: 'Organic farm & yoga retreat near Sintra', meta: '2 weeks min · 25 hrs/week', price: 'Free stay + meals', interested: 3 }
+  ];
+
+  const avatarPool = [['🌸', '#C4622D'], ['🌿', '#8A9E7E'], ['🌊', '#5B8DB8'], ['🦋', '#C4876A'], ['🌙', '#8C6A9E'], ['🌺', '#D4A853']];
+
+  let meetupSeq = 100;
+  const meetups = [
+    { id: 1, emoji: '🍷', cat: 'Food & drinks', title: 'Sunset drinks at Senhora do Monte viewpoint', date: 'Sat, Oct 17', time: '6:30 PM', place: 'Miradouro da Senhora do Monte', dist: '0.9 mi', desc: 'Bring a snack to share. We\'ll grab wine from the kiosk and watch the sunset, then find dinner in Graça.', host: 'Amara', hostEmoji: '🌺', going: 12, not: 3, max: 15, me: null },
+    { id: 2, emoji: '🏃‍♀️', cat: 'Outdoors', title: 'Easy 5K run along the river', date: 'Sun, Oct 18', time: '8:00 AM', place: 'Praça do Comércio, by the arch', dist: '1.4 mi', desc: 'Conversational pace, flat route to Belém. Coffee after for anyone who wants it.', host: 'Priya', hostEmoji: '🌿', going: 7, not: 1, max: 0, me: null },
+    { id: 3, emoji: '💻', cat: 'Coworking', title: 'Coworking + coffee day', date: 'Tue, Oct 20', time: '10:00 AM', place: 'Café in Príncipe Real garden', dist: '1.1 mi', desc: 'Laptops out, good Wi-Fi, lunch together at 1. Perfect if you\'re working remotely and want company.', host: 'Mei', hostEmoji: '🌙', going: 5, not: 0, max: 8, me: null },
+    { id: 4, emoji: '🎶', cat: 'Culture', title: 'Fado night in Alfama', date: 'Thu, Oct 22', time: '9:00 PM', place: 'Small fado house on Rua dos Remédios', dist: '1.7 mi', desc: 'Traditional fado with dinner. We\'ll share taxis home after so nobody walks back alone.', host: 'Lucia', hostEmoji: '🦋', going: 9, not: 2, max: 10, me: null }
+  ];
+
+  const trips = [
+    { id: 't1', emoji: '🌴', bg: 'linear-gradient(135deg, #C4622D, #8B3A1A)', partner: 'Worldpackers', title: 'Bali Women\'s Wellness Week', date: '📅 Mar 6 – Mar 13, 2027', price: 'From $890', going: 8, joined: false },
+    { id: 't2', emoji: '🏛️', bg: 'linear-gradient(135deg, #5B8DB8, #2C5F8A)', partner: 'GetYourGuide', title: 'Santorini Sunset Retreat', date: '📅 Apr 12 – Apr 19, 2027', price: 'From $1,200', going: 14, joined: false },
+    { id: 't3', emoji: '🥾', bg: 'linear-gradient(135deg, #8A9E7E, #4E6645)', partner: 'GetYourGuide', title: 'Portuguese Coastal Way: Porto to Vigo', date: '📅 May 3 – May 10, 2027', price: 'From $760', going: 6, joined: false }
+  ];
+
+  const goodTags = ['24h front desk', 'Well-lit street', 'Secure locks', 'Female-only dorm', 'Helpful staff', 'Easy transport', 'Quiet area at night'];
+  const badTags = ['Poor lighting', 'Broken locks', 'Felt followed', 'Unhelpful staff', 'Booking not honoured', 'Unwanted attention', 'Isolated area'];
+
+  const reviews = [
+    { id: 1, place: 'Casa Azulejo Guesthouse', city: 'Lisbon, Portugal', type: 'Guesthouse', safe: true, rating: 5, by: 'Amara', emoji: '🌺', when: 'Sep 2026', text: 'The owner gave me a map of which streets to avoid late at night and the front door has a keypad. Every room locks from inside. I walked back alone after dinner several times and felt completely fine.', tags: ['Secure locks', 'Helpful staff', 'Well-lit street'], helpful: 18, me: false },
+    { id: 2, place: 'Harbourside Backpackers', city: 'Porto, Portugal', type: 'Hostel', safe: false, rating: 2, by: 'Zara', emoji: '🌊', when: 'Aug 2026', text: 'I booked a female-only dorm and was put in a mixed room because they were "full". My locker lock was broken, and a man from another room kept knocking on our door after midnight. Staff shrugged it off.', tags: ['Booking not honoured', 'Broken locks', 'Unhelpful staff'], helpful: 31, me: false },
+    { id: 3, place: 'Lotus Garden Villas', city: 'Ubud, Bali', type: 'Rental', safe: true, rating: 4, by: 'Priya', emoji: '🌿', when: 'Jul 2026', text: 'Gated, with a night guard and scooter drivers the hosts know personally. The path from the main road is dark, so take a torch, but inside I felt very safe.', tags: ['24h front desk', 'Helpful staff'], helpful: 12, me: false },
+    { id: 4, place: 'Riad Noor', city: 'Marrakech, Morocco', type: 'Guesthouse', safe: true, rating: 5, by: 'Lucia', emoji: '🦋', when: 'May 2026', text: 'Staff met me at the edge of the medina and walked me in, which made a huge difference. They also booked a trusted driver for my airport run.', tags: ['Helpful staff', 'Easy transport'], helpful: 22, me: false },
+    { id: 5, place: 'Central Station Rooms', city: 'Barcelona, Spain', type: 'Hotel', safe: false, rating: 1, by: 'Mei', emoji: '🌙', when: 'Apr 2026', text: 'Entrance is down a side alley with no lighting and people hanging around at night. The room door didn\'t latch properly and reception was unstaffed after 10 PM.', tags: ['Poor lighting', 'Broken locks', 'Isolated area'], helpful: 27, me: false }
+  ];
+
+  const chats = {
+    amara: { name: 'Amara', emoji: '🌺', bg: 'linear-gradient(135deg, #C4622D, #D4A853)', tag: '✈️ Both going to Bali!', time: '2m ago', unread: true, msgs: [['them', 'Hiii! Just saw you\'re going to Bali in March too 😍'], ['me', 'Yes!! First time. Are you doing Ubud?'], ['them', 'Omg yes we should totally meet up!']] },
+    priya: { name: 'Priya', emoji: '🌿', bg: 'linear-gradient(135deg, #8A9E7E, #5B7A52)', tag: '✈️ Both going to Morocco!', time: '1h ago', unread: false, msgs: [['me', 'Saw you\'re heading to Marrakech in January!'], ['them', 'Have you been to Marrakech before?']] },
+    group: { name: 'Solmia Girls Trip 🌍', emoji: '🌊', bg: 'linear-gradient(135deg, #5B8DB8, #2C5F8A)', tag: '', time: '3h ago', unread: true, group: true, msgs: [['them', 'Lucia: Flights to Denpasar just dropped to $780 from NYC 👀'], ['them', 'Zara: Who\'s joining the Bali retreat?']] }
+  };
+  const chatOrder = ['amara', 'priya', 'group'];
+  const newMatches = ['amara', 'priya', 'zara', 'lucia'];
+
+  const me = { name: 'Sofia', age: 31, emoji: '🌸', city: 'New York, USA' };
+
+  const S = {
+    screen: 'onboarding', stack: [], deck: 0, explore: 'activities', partner: 'all',
+    stayFilter: 'all', stayQuery: '', plan: 'yearly', chat: null, lastMatch: null,
+    premium: false, reviewDraft: { stars: 0, safe: null }
+  };
+
+  const tabs = ['discover', 'explore', 'stays', 'messages', 'profile'];
+  const screenInfo = {
+    onboarding: { label: 'Onboarding', icon: '☀️', notes: ['First screen for new and returning users.', '"Create my profile" starts sign-up. "Sign in" goes straight into the app.', 'Trial message sets expectations before the paywall.'] },
+    setup: { label: 'Profile setup', icon: '📝', notes: ['Step 2 of 3 of sign-up (step 1: phone/email + ID verification; step 3: photos).', 'All fields are editable; travel style chips are multi-select.', '"Next trip destination" powers matching with women heading to the same place.'] },
+    discover: { label: 'Discover', icon: '💛', notes: ['One profile card at a time, ranked by distance and shared upcoming trips.', '✕ passes, ☀️ connects, ⭐ Super Shine (Premium, opens the paywall on free plans).', 'Some sample profiles connect back, which shows the "It\'s a match" pop-up.', 'The "In Lisbon until…" badge comes from the traveller\'s current location and dates.'] },
+    explore: { label: 'Explore', icon: '🌍', isNew: true, notes: ['Three tabs: Local activities, Meetups, Group trips.', 'Local activities: partner listings from GetYourGuide (tours) and Worldpackers (volunteer stays), filtered by partner. "Book" hands off to the partner (affiliate link).', 'Meetups: events created by members for anyone within 10 mi. Each card shows how many Solmia women are going, with Going / Not going buttons. Tap again to undo.', 'Group trips: curated multi-day trips. Joining adds you to the trip group chat.'] },
+    'create-meetup': { label: 'Create meetup', icon: '➕', isNew: true, notes: ['Opened from Explore → Meetups → "Create a meetup".', 'Fields: title, type, date, time, meeting spot, details, group size.', 'Title and meeting spot are required. Posting adds the meetup to the top of the list with the host already marked Going.', 'Suggested rules: verified members only can RSVP; exact spot revealed after RSVP; a member can report a meetup.'] },
+    stays: { label: 'Safe Stays', icon: '🛡️', isNew: true, notes: ['Reviews of places women stayed while travelling solo, marked Safe or Not safe.', 'Each review has a 1–5 star rating, safety tags and a written reason.', 'Search filters by city or place name; chips filter All / Safe / Not safe.', '"Helpful" lets members upvote useful reviews (sort by most helpful later).'] },
+    'write-review': { label: 'Write review', icon: '✍️', isNew: true, notes: ['Opened from Safe Stays → "Write a review".', 'Required: place, city, star rating, safe / not safe, and a description of at least 20 characters.', 'Safety tags switch between positive and negative sets depending on the safe / not safe answer.', 'Suggested: reviews post under first name only, with moderation for names of individuals.'] },
+    messages: { label: 'Messages', icon: '💬', notes: ['New matches row on top, conversations below.', 'Shared trip destinations are highlighted ("Both going to Bali!").', 'Tap any match or conversation to open the chat.'] },
+    chat: { label: 'Chat', icon: '🗨️', isNew: true, notes: ['One-to-one or group conversation.', 'Typing a message and pressing send adds it; the other person replies automatically in this mockup.', '🛡️ opens safety tools: report, block, share live location with a trusted contact.'] },
+    profile: { label: 'Profile', icon: '👤', isNew: true, notes: ['Your own profile as others see it, plus your activity.', 'Stats count connections, meetups you\'re going to and reviews you\'ve written. They update as you use the mockup.', 'Edit profile reopens setup. "Solmia Premium" opens the paywall. Log out returns to onboarding.'] },
+    paywall: { label: 'Paywall', icon: '🔓', notes: ['Shown from Profile → Premium, or when using Super Shine on the free plan.', 'Monthly / Yearly options are selectable; the line under the button updates.', 'Starting the trial unlocks Premium in the mockup (the Profile card changes).'] }
+  };
+
+  // ---------- Helpers ----------
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const starsHtml = n => '<span class="stars" aria-label="' + n + ' out of 5 stars">' + '★'.repeat(n) + '<span class="off">' + '★'.repeat(5 - n) + '</span></span>';
+
+  let toastTimer;
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 2200);
+  }
+
+  // ---------- Navigation ----------
+  function go(id, opts = {}) {
+    if (opts.push !== false && S.screen !== id) S.stack.push(S.screen);
+    S.screen = id;
+    render();
+  }
+  function tab(id) { S.stack = []; S.screen = id; render(); }
+  function back() { S.screen = S.stack.pop() || 'discover'; render(); }
+
+  function render() {
+    $$('.screen').forEach(s => { s.hidden = s.dataset.screen !== S.screen; });
+    const isTab = tabs.includes(S.screen);
+    $('#bottomNav').hidden = !isTab;
+    $$('#bottomNav .nav-item').forEach(n => n.classList.toggle('active', n.dataset.tab === S.screen));
+    const sb = $('#statusBar');
+    sb.className = 'status-bar' + (S.screen === 'onboarding' ? ' sunset' : S.screen === 'paywall' ? ' dark' : S.screen === 'profile' ? ' sunset' : '');
+    const unread = chatOrder.filter(k => chats[k].unread).length;
+    $('#msgBadge').hidden = !unread; $('#msgBadge').textContent = unread;
+
+    ({ discover: renderDiscover, explore: renderExplore, stays: renderStays, messages: renderMessages, chat: renderChat, profile: renderProfile, paywall: renderPaywall, 'write-review': renderReviewForm })[S.screen]?.();
+
+    const info = screenInfo[S.screen];
+    $('#notesTitle').textContent = info.label;
+    $('#notesList').innerHTML = info.notes.map(n => '<li>' + esc(n) + '</li>').join('');
+    $$('#screenIndex button').forEach(b => b.classList.toggle('current', b.dataset.jump === S.screen));
+    const sc = $('[data-screen="' + S.screen + '"] .scroll');
+    if (sc && S.screen !== 'chat' && !opts_keepScroll) sc.scrollTop = 0;
+    opts_keepScroll = false;
+  }
+  let opts_keepScroll = false;
+  function rerender() { opts_keepScroll = true; render(); }
+
+  // ---------- Discover ----------
+  function renderDiscover() {
+    const p = people[S.deck];
+    const stack = $('#cardStack');
+    $('#swipeActions').hidden = !p;
+    if (!p) {
+      stack.innerHTML = '<div class="empty"><div class="big">🌅</div><h3>You\'ve seen everyone nearby</h3><p>Check back later, or meet women in person at a local meetup.</p><button class="btn btn-terra btn-sm" data-action="deck-reset">Start over</button><button class="btn btn-outline btn-sm" data-explore-go="meetups">See meetups</button></div>';
+      return;
+    }
+    stack.innerHTML =
+      '<div class="swipe-card" id="swipeCard" style="background:' + p.bg + '">' +
+        '<span class="here-badge">📍 ' + esc(p.here) + '</span>' +
+        '<span class="verified-badge">✓ Verified</span>' +
+        '<div class="card-photo"><div class="avatar-large">' + p.emoji + '</div></div>' +
+        '<div class="card-overlay">' +
+          '<div class="card-name">' + esc(p.name) + ', ' + p.age + '</div>' +
+          '<div class="card-meta">From ' + esc(p.city) + ' · ' + esc(p.dist) + '</div>' +
+          '<div class="card-bio">' + esc(p.bio) + '</div>' +
+          '<div class="card-trip">✈️ Next trip: ' + esc(p.trip) + '</div>' +
+          '<div class="card-tags-row">' + p.tags.map(t => '<span class="card-tag">' + esc(t) + '</span>').join('') + '</div>' +
+        '</div>' +
+      '</div>';
+  }
+  function swipe(dir, after) {
+    const card = $('#swipeCard');
+    if (!card) return;
+    card.classList.add(dir === 'left' ? 'out-left' : dir === 'up' ? 'out-up' : 'out-right');
+    setTimeout(() => { S.deck++; after && after(); rerender(); }, 260);
+  }
+  function makeMatch(p) {
+    if (!newMatches.includes(p.id)) newMatches.unshift(p.id);
+    if (!chats[p.id]) {
+      chats[p.id] = { name: p.name, emoji: p.emoji, bg: p.bg, tag: '📍 Both in Lisbon now', time: 'now', unread: false, msgs: [] };
+    }
+    S.lastMatch = p.id;
+    $('#matchEmoji').textContent = p.emoji;
+    $('#matchEmoji').style.background = p.bg;
+    $('#matchText').textContent = 'You and ' + p.name + ' both want to connect. She\'s ' + p.dist.replace(' away', '') + ' away and heading to ' + p.trip.split(',')[0] + ' next.';
+    $('#matchOverlay').hidden = false;
+  }
+
+  // ---------- Explore ----------
+  function renderExplore() {
+    $$('[data-explore]').forEach(b => { b.classList.toggle('on', b.dataset.explore === S.explore); b.setAttribute('aria-selected', b.dataset.explore === S.explore); });
+    $$('[data-pane]').forEach(p => { p.hidden = p.dataset.pane !== S.explore; });
+    $$('#partnerChips .chip').forEach(c => c.classList.toggle('on', c.dataset.partner === S.partner));
+
+    $('#activityList').innerHTML = activities.filter(a => S.partner === 'all' || a.partner === S.partner).map(a =>
+      '<article class="act-card">' +
+        '<div class="act-img" style="background:' + a.bg + '">' + a.emoji + '<span class="partner-badge">' + a.partner + '</span><span class="act-type">' + a.type + '</span></div>' +
+        '<div class="act-body">' +
+          '<div class="act-title">' + esc(a.title) + '</div>' +
+          '<div class="act-meta"><span>' + esc(a.meta) + '</span><span class="act-price">' + esc(a.price) + '</span></div>' +
+          '<div class="act-foot"><span class="interest">💛 ' + a.interested + ' Solmia women interested</span>' +
+          '<button class="btn-join" data-toast="Opens ' + a.partner + ' to book (affiliate link)">' + (a.partner === 'Worldpackers' ? 'Apply ↗' : 'Book ↗') + '</button></div>' +
+        '</div>' +
+      '</article>').join('');
+
+    $('#meetupList').innerHTML = meetups.map(m => {
+      const going = m.going + (m.me === 'going' ? 1 : 0);
+      const not = m.not + (m.me === 'not' ? 1 : 0);
+      const left = m.max ? Math.max(m.max - going, 0) : null;
+      const avs = avatarPool.slice(0, Math.min(going, 4)).map(([e, c]) => '<span class="going-avatar" style="background:' + c + '">' + e + '</span>').join('');
+      return '<article class="meet-card' + (m.mine ? ' mine' : '') + '">' +
+        '<div class="meet-top"><div class="meet-emoji">' + m.emoji + '</div><div class="meet-head">' +
+          '<span class="meet-cat">' + esc(m.cat) + (m.mine ? ' · Your meetup' : '') + '</span>' +
+          '<h3>' + esc(m.title) + '</h3>' +
+          '<span class="meet-line">📅 ' + esc(m.date) + ' · ' + esc(m.time) + '</span>' +
+          '<span class="meet-line">📍 ' + esc(m.place) + ' · ' + esc(m.dist) + '</span>' +
+        '</div></div>' +
+        (m.desc ? '<p class="meet-desc">' + esc(m.desc) + '</p>' : '') +
+        '<div class="meet-host">Hosted by <b>' + esc(m.host) + '</b> ' + m.hostEmoji + ' <span class="tick">✓ verified</span></div>' +
+        '<div class="meet-count"><span class="going-avatars">' + avs + '</span><span style="margin-left:6px;"><b>' + going + '</b> Solmia women going' +
+          '<span class="sub">' + not + ' not going' + (left !== null ? ' · ' + (left ? left + ' spots left' : 'Full') : ' · No limit') + '</span></span></div>' +
+        '<div class="rsvp">' +
+          '<button class="rsvp-btn going' + (m.me === 'going' ? ' on' : '') + '" data-rsvp="' + m.id + '" data-val="going" aria-pressed="' + (m.me === 'going') + '">✓ Going</button>' +
+          '<button class="rsvp-btn not' + (m.me === 'not' ? ' on' : '') + '" data-rsvp="' + m.id + '" data-val="not" aria-pressed="' + (m.me === 'not') + '">✕ Not going</button>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+
+    $('#tripList').innerHTML = trips.map(t =>
+      '<article class="trip-card">' +
+        '<div class="trip-card-img" style="background:' + t.bg + '">' + t.emoji + '<span class="partner-badge" style="left:auto; right:10px;">' + t.partner + '</span></div>' +
+        '<div class="trip-card-body">' +
+          '<div class="act-title">' + esc(t.title) + '</div>' +
+          '<div class="act-meta"><span>' + t.date + '</span><span class="act-price">' + t.price + '</span></div>' +
+          '<div class="act-foot"><span style="display:flex; align-items:center;"><span class="going-avatars">' +
+            avatarPool.slice(0, 3).map(([e, c]) => '<span class="going-avatar" style="background:' + c + '">' + e + '</span>').join('') +
+          '</span><span class="interest" style="margin-left:14px;">' + (t.going + (t.joined ? 1 : 0)) + ' going</span></span>' +
+          '<button class="btn-join' + (t.joined ? ' joined' : '') + '" data-join="' + t.id + '">' + (t.joined ? 'Joined ✓' : 'Join trip') + '</button></div>' +
+        '</div>' +
+      '</article>').join('');
+  }
+
+  function postMeetup() {
+    const title = $('#mf-title').value.trim();
+    const place = $('#mf-place').value.trim();
+    const err = $('#mf-error');
+    if (!title || !place) { err.hidden = false; return; }
+    err.hidden = true;
+    const cat = $('#mf-cat .chip.on');
+    const size = +$('#mf-size .chip.on').dataset.size;
+    const d = $('#mf-date').value ? new Date($('#mf-date').value + 'T12:00') : null;
+    const dateStr = d ? d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'Date TBD';
+    let timeStr = 'Time TBD';
+    if ($('#mf-time').value) {
+      const [h, mi] = $('#mf-time').value.split(':').map(Number);
+      timeStr = ((h % 12) || 12) + ':' + String(mi).padStart(2, '0') + (h < 12 ? ' AM' : ' PM');
+    }
+    meetups.unshift({ id: ++meetupSeq, emoji: cat.dataset.emoji, cat: cat.textContent, title, date: dateStr, time: timeStr, place, dist: 'near you', desc: $('#mf-desc').value.trim(), host: 'You', hostEmoji: me.emoji, going: 0, not: 0, max: size, me: 'going', mine: true });
+    $('#meetupForm').reset();
+    $('#mf-date').value = '2026-10-24'; $('#mf-time').value = '18:30';
+    S.explore = 'meetups';
+    back();
+    toast('Meetup posted. Women nearby will be notified.');
+  }
+
+  // ---------- Safe Stays ----------
+  function renderStays() {
+    const q = S.stayQuery.toLowerCase();
+    const matchesQ = r => !q || (r.place + ' ' + r.city).toLowerCase().includes(q);
+    const pool = reviews.filter(matchesQ);
+    const counts = { all: pool.length, safe: pool.filter(r => r.safe).length, unsafe: pool.filter(r => !r.safe).length };
+    $('#stayFilters').innerHTML =
+      '<button class="chip' + (S.stayFilter === 'all' ? ' on' : '') + '" data-stay="all">All<span class="count">' + counts.all + '</span></button>' +
+      '<button class="chip' + (S.stayFilter === 'safe' ? ' on-safe' : '') + '" data-stay="safe">🛡️ Safe<span class="count">' + counts.safe + '</span></button>' +
+      '<button class="chip' + (S.stayFilter === 'unsafe' ? ' on-unsafe' : '') + '" data-stay="unsafe">⚠️ Not safe<span class="count">' + counts.unsafe + '</span></button>';
+    const list = pool.filter(r => S.stayFilter === 'all' || (S.stayFilter === 'safe' ? r.safe : !r.safe));
+    $('#reviewList').innerHTML = list.length ? list.map(r =>
+      '<article class="review-card' + (r.safe ? '' : ' unsafe') + '">' +
+        '<div class="review-top"><div><div class="review-place">' + esc(r.place) + '</div><div class="review-loc">📍 ' + esc(r.city) + ' · ' + esc(r.type) + '</div></div>' +
+        '<span class="safe-pill' + (r.safe ? '' : ' unsafe') + '">' + (r.safe ? '🛡️ Safe' : '⚠️ Not safe') + '</span></div>' +
+        '<div class="rating-row">' + starsHtml(r.rating) + '<span>' + r.rating + '.0</span></div>' +
+        '<p class="review-text">' + esc(r.text) + '</p>' +
+        (r.tags.length ? '<div class="review-tags">' + r.tags.map(t => '<span class="rtag' + (badTags.includes(t) ? ' bad' : '') + '">' + esc(t) + '</span>').join('') + '</div>' : '') +
+        '<div class="review-foot"><span>' + r.emoji + ' ' + esc(r.by) + ' · stayed ' + esc(r.when) + '</span>' +
+        '<button class="helpful' + (r.me ? ' on' : '') + '" data-helpful="' + r.id + '">👍 Helpful ' + (r.helpful + (r.me ? 1 : 0)) + '</button></div>' +
+      '</article>').join('')
+      : '<div class="empty"><div class="big">🧭</div><h3>No reviews yet</h3><p>Nobody has reviewed a stay matching "' + esc(S.stayQuery) + '". Be the first to help other women.</p></div>';
+  }
+
+  function renderReviewForm() {
+    const d = S.reviewDraft;
+    $('#rf-stars').innerHTML = [1, 2, 3, 4, 5].map(n => '<button type="button" role="radio" aria-checked="' + (d.stars === n) + '" aria-label="' + n + ' star' + (n > 1 ? 's' : '') + '" class="' + (n <= d.stars ? 'on' : '') + '" data-star="' + n + '">★</button>').join('');
+    $('#rf-stars-label').textContent = d.stars ? ['', 'Terrible', 'Poor', 'Okay', 'Good', 'Excellent'][d.stars] : 'Tap a star';
+    $$('.safe-toggle button').forEach(b => b.classList.toggle('on', d.safe !== null && String(+d.safe) === b.dataset.safe));
+    const selected = $$('#rf-tags .chip.on').map(c => c.textContent);
+    const set = d.safe === false ? badTags : goodTags;
+    $('#rf-tags').innerHTML = set.map(t => '<button type="button" class="chip' + (selected.includes(t) ? ' on' : '') + '">' + esc(t) + '</button>').join('');
+  }
+
+  function postReview() {
+    const d = S.reviewDraft;
+    const place = $('#rf-place').value.trim(), city = $('#rf-city').value.trim(), text = $('#rf-text').value.trim();
+    const missing = [];
+    if (!place) missing.push('the place name');
+    if (!city) missing.push('the city');
+    if (!d.stars) missing.push('a star rating');
+    if (d.safe === null) missing.push('whether you felt safe');
+    if (text.length < 20) missing.push('a description (at least 20 characters)');
+    const err = $('#rf-error');
+    if (missing.length) { err.textContent = 'Add ' + missing.join(', ') + ' to post.'; err.hidden = false; return; }
+    err.hidden = true;
+    reviews.unshift({ id: Date.now(), place, city, type: $('#rf-type .chip.on').textContent, safe: d.safe, rating: d.stars, by: 'You', emoji: me.emoji, when: 'Oct 2026', text, tags: $$('#rf-tags .chip.on').map(c => c.textContent), helpful: 0, me: false, mine: true });
+    $('#reviewForm').reset(); $('#rf-count').textContent = '0 / 600';
+    S.reviewDraft = { stars: 0, safe: null };
+    $('#rf-tags').innerHTML = '';
+    S.stayFilter = 'all'; S.stayQuery = ''; $('#staySearch').value = '';
+    back();
+    toast('Thanks! Your review is live.');
+  }
+
+  // ---------- Messages ----------
+  function renderMessages() {
+    $('#matchesRow').innerHTML = newMatches.map(id => {
+      const p = people.find(x => x.id === id);
+      return '<button class="match-avatar" data-open-chat="' + id + '"><span class="match-circle" style="background:' + p.bg + '">' + p.emoji + '</span><span class="match-name">' + p.name + '</span></button>';
+    }).join('');
+    const order = [...Object.keys(chats).filter(k => !chatOrder.includes(k) && chats[k].msgs.length), ...chatOrder];
+    $('#chatList').innerHTML = order.map(k => {
+      const c = chats[k];
+      const last = c.msgs[c.msgs.length - 1];
+      const preview = last ? (last[0] === 'me' ? 'You: ' : '') + last[1] : 'Say hi 👋';
+      return '<button class="chat-item" data-open-chat="' + k + '"><span class="chat-avatar" style="background:' + c.bg + '">' + c.emoji + '</span>' +
+        '<span class="chat-info"><span class="chat-name-row"><span class="chat-name">' + esc(c.name) + '</span><span class="chat-time">' + c.time + '</span></span>' +
+        (c.tag ? '<span class="chat-trip-tag" style="display:block;">' + c.tag + '</span>' : '') +
+        '<span class="chat-preview" style="display:block;">' + esc(preview) + '</span></span>' +
+        (c.unread ? '<span class="unread-dot"></span>' : '') + '</button>';
+    }).join('');
+  }
+  function openChat(id) {
+    if (!chats[id]) {
+      const p = people.find(x => x.id === id);
+      chats[id] = { name: p.name, emoji: p.emoji, bg: p.bg, tag: '📍 Both in Lisbon now', time: 'now', unread: false, msgs: [] };
+    }
+    chats[id].unread = false;
+    S.chat = id;
+    go('chat');
+  }
+  function renderChat() {
+    const c = chats[S.chat];
+    $('#chatAvatar').style.background = c.bg; $('#chatAvatar').textContent = c.emoji;
+    $('#chatName').textContent = c.name;
+    $('#chatSub').textContent = c.group ? '18 members' : 'Active now';
+    $('#chatBanner').textContent = c.tag || 'Group chat for the Bali Women\'s Wellness Week';
+    $('#bubbles').innerHTML = '<span class="bubble-day">Today</span>' + (c.msgs.length ? c.msgs.map(([who, t]) => '<div class="bubble ' + who + '">' + esc(t) + '</div>').join('') : '<span class="bubble-day">You matched. Say hi 👋</span>');
+    const sc = $('#chatScroll'); sc.scrollTop = sc.scrollHeight;
+  }
+  const replies = ['Love that! 😊', 'Yes, let\'s do it!', 'Haha same 😂', 'Are you free this weekend?', 'I\'ll send you the details!'];
+
+  // ---------- Profile ----------
+  function renderProfile() {
+    const going = meetups.filter(m => m.me === 'going');
+    const myReviews = reviews.filter(r => r.mine);
+    const connections = 24 + Object.keys(chats).filter(k => !chatOrder.includes(k)).length;
+    const joined = trips.filter(t => t.joined);
+    $('#profileBody').innerHTML =
+      '<div class="profile-hero">' +
+        '<button class="edit" data-go="setup">Edit profile</button>' +
+        '<div class="profile-avatar">' + me.emoji + '</div>' +
+        '<h2>' + esc(me.name) + ', ' + me.age + '</h2>' +
+        '<div class="where">🏠 ' + esc(me.city) + ' · 📍 Currently in Lisbon</div>' +
+        '<span class="verified-line">✓ ID verified' + (S.premium ? ' · ☀️ Premium' : '') + '</span>' +
+      '</div>' +
+      '<div class="stats">' +
+        '<button class="stat" data-tab="messages"><b>' + connections + '</b><span>Connections</span></button>' +
+        '<button class="stat" data-explore-go="meetups"><b>' + going.length + '</b><span>Meetups</span></button>' +
+        '<button class="stat" data-tab="stays"><b>' + myReviews.length + '</b><span>Reviews</span></button>' +
+      '</div>' +
+      '<div class="p-section"><h3>About me</h3><p class="bio">Marketing manager from Brooklyn taking three months to travel solo. I love street food, early-morning hikes and finding the best rooftop in every city. Looking for travel buddies and local friends.</p></div>' +
+      '<div class="p-section"><h3>Upcoming trips</h3>' +
+        '<div class="trip-row"><span class="ico" style="background:var(--sand-light)">🇵🇹</span><span><b>Lisbon, Portugal</b><span>Now · until Oct 28, 2026</span></span></div>' +
+        '<div class="trip-row"><span class="ico" style="background:var(--sand-light)">🇮🇩</span><span><b>Bali, Indonesia</b><span>Mar 2027 · 4 Solmia women going</span></span></div>' +
+        joined.map(t => '<div class="trip-row"><span class="ico" style="background:' + t.bg + '">' + t.emoji + '</span><span><b>' + esc(t.title) + '</b><span>' + t.date.replace('📅 ', '') + ' · Group trip</span></span></div>').join('') +
+      '</div>' +
+      '<div class="p-section"><h3>Travel style</h3><div class="chips">' + ['Solo explorer', 'Culture', 'Adventure'].map(t => '<span class="chip on">' + t + '</span>').join('') + '</div></div>' +
+      '<div class="p-section"><h3>Meetups I\'m going to</h3>' +
+        (going.length ? going.map(m => '<div class="trip-row"><span class="ico" style="background:var(--sand-light)">' + m.emoji + '</span><span><b>' + esc(m.title) + '</b><span>' + esc(m.date) + ' · ' + esc(m.time) + '</span></span></div>').join('')
+          : '<p class="bio" style="color:var(--muted); font-size:12px;">None yet. Tap Going on a meetup in Explore and it shows up here.</p>') +
+      '</div>' +
+      '<div class="p-section"><h3>My Safe Stays reviews</h3>' +
+        (myReviews.length ? myReviews.map(r => '<div class="trip-row"><span class="ico" style="background:' + (r.safe ? 'var(--safe-bg)' : 'var(--unsafe-bg)') + '">' + (r.safe ? '🛡️' : '⚠️') + '</span><span><b>' + esc(r.place) + '</b><span>' + starsHtml(r.rating) + ' · ' + esc(r.city) + '</span></span></div>').join('')
+          : '<p class="bio" style="color:var(--muted); font-size:12px;">You haven\'t reviewed a stay yet.</p>') +
+      '</div>' +
+      '<div class="p-section">' +
+        '<button class="premium-card" data-go="paywall"><span class="sun">☀️</span><span><b>' + (S.premium ? 'Solmia Premium · Trial active' : 'Solmia Premium') + '</b><span>' + (S.premium ? 'Manage your plan' : 'Try free for 7 days') + '</span></span><span class="arrow">›</span></button>' +
+        '<div class="settings">' +
+          '<button data-toast="Verification, trusted contacts, live location sharing">🛡️ Safety &amp; verification<span class="chev">›</span></button>' +
+          '<button data-toast="Choose alerts for matches, meetups and messages">🔔 Notifications<span class="chev">›</span></button>' +
+          '<button data-toast="Control who sees your trips and location">🔒 Privacy<span class="chev">›</span></button>' +
+          '<button data-action="logout">↩️ Log out<span class="chev">›</span></button>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderPaywall() {
+    $$('.price-option').forEach(p => p.classList.toggle('selected', p.dataset.plan === S.plan));
+    $('#trialNote').textContent = S.plan === 'yearly' ? 'Then $275/year · No charge until trial ends' : 'Then $24.99/month · No charge until trial ends';
+  }
+
+  // ---------- Events ----------
+  document.addEventListener('click', e => {
+    const t = e.target.closest('button, [data-go], [data-tab]');
+    if (!t || !$('#app').contains(t) && !t.dataset.jump) return;
+    const d = t.dataset;
+
+    if (d.jump) { S.stack = tabs.includes(d.jump) || d.jump === 'onboarding' ? [] : ['discover']; if (d.jump === 'chat') S.chat = S.chat || 'amara'; if (d.jump === 'create-meetup') { S.explore = 'meetups'; S.stack = ['explore']; } if (d.jump === 'write-review') S.stack = ['stays']; S.screen = d.jump; render(); return; }
+    if ('back' in d) { back(); return; }
+    if (d.go) { go(d.go); return; }
+    if (d.tab) { tab(d.tab); return; }
+    if (d.toast) toast(d.toast);
+    if (d.exploreGo) { S.explore = d.exploreGo; tab('explore'); return; }
+    if (d.explore) { S.explore = d.explore; render(); return; }
+    if (d.partner) { S.partner = d.partner; rerender(); return; }
+    if (d.stay) { S.stayFilter = d.stay; rerender(); return; }
+    if (d.plan) { S.plan = d.plan; render(); return; }
+    if (d.star) { S.reviewDraft.stars = +d.star; renderReviewForm(); return; }
+    if (d.safe !== undefined && t.closest('.safe-toggle')) { S.reviewDraft.safe = d.safe === '1'; renderReviewForm(); return; }
+    if (d.openChat) { openChat(d.openChat); return; }
+    if (d.rsvp) {
+      const m = meetups.find(x => x.id === +d.rsvp);
+      const going = m.going + (m.me === 'going' ? 1 : 0);
+      if (d.val === 'going' && m.me !== 'going' && m.max && going >= m.max) { toast('This meetup is full. Turn on alerts to hear if a spot opens.'); return; }
+      m.me = m.me === d.val ? null : d.val;
+      if (m.me === 'going') toast('You\'re going! Exact spot and group chat unlocked.');
+      rerender(); return;
+    }
+    if (d.join) { const tr = trips.find(x => x.id === d.join); tr.joined = !tr.joined; if (tr.joined) toast('Joined! You\'ve been added to the trip chat.'); rerender(); return; }
+    if (d.helpful) { const r = reviews.find(x => x.id === +d.helpful); r.me = !r.me; rerender(); return; }
+
+    // single / multi select chip groups
+    const group = t.closest('[data-single], [data-multi]');
+    if (group && t.classList.contains('chip')) {
+      if ('single' in group.dataset) $$('.chip', group).forEach(c => c.classList.remove('on'));
+      t.classList.toggle('on', 'single' in group.dataset ? true : !t.classList.contains('on'));
+      return;
+    }
+
+    switch (d.action) {
+      case 'finish-setup':
+        me.name = $('#su-name').value.trim() || 'Sofia';
+        me.age = $('#su-age').value.trim() || 31;
+        me.city = $('#su-city').value.trim() || 'New York, USA';
+        tab('discover'); toast('Profile saved. Welcome to Solmia ☀️'); break;
+      case 'pass': swipe('left'); break;
+      case 'connect': { const p = people[S.deck]; swipe('right', () => { if (p.match) makeMatch(p); else toast('Connection sent to ' + p.name); }); break; }
+      case 'super':
+        if (!S.premium) { go('paywall'); toast('Super Shine is a Premium feature'); }
+        else { const p = people[S.deck]; swipe('up', () => makeMatch(p)); }
+        break;
+      case 'deck-reset': S.deck = 0; rerender(); break;
+      case 'match-close': $('#matchOverlay').hidden = true; rerender(); break;
+      case 'match-message': $('#matchOverlay').hidden = true; S.stack = ['discover']; openChat(S.lastMatch); break;
+      case 'post-meetup': postMeetup(); break;
+      case 'post-review': postReview(); break;
+      case 'start-trial': S.premium = true; back(); toast('Your 7-day free trial has started ☀️'); break;
+      case 'logout': S.deck = 0; tab('onboarding'); break;
+    }
+  });
+
+  $('#composer').addEventListener('submit', e => {
+    e.preventDefault();
+    const inp = $('#composerInput');
+    const text = inp.value.trim();
+    if (!text) return;
+    const id = S.chat, c = chats[id];
+    c.msgs.push(['me', text]); c.time = 'now';
+    inp.value = '';
+    renderChat();
+    setTimeout(() => {
+      const reply = replies[c.msgs.length % replies.length];
+      c.msgs.push(['them', c.group ? 'Zara: ' + reply : reply]);
+      if (S.screen === 'chat' && S.chat === id) renderChat();
+    }, 1100);
+  });
+  $('#meetupForm').addEventListener('submit', e => e.preventDefault());
+  $('#reviewForm').addEventListener('submit', e => e.preventDefault());
+  $('#staySearch').addEventListener('input', e => { S.stayQuery = e.target.value; renderStays(); });
+  $('#rf-text').addEventListener('input', e => { $('#rf-count').textContent = e.target.value.length + ' / 600'; });
+
+  // Screen index in side panel
+  $('#screenIndex').innerHTML = Object.entries(screenInfo).map(([id, i]) =>
+    '<button data-jump="' + id + '"><span>' + i.icon + '</span><span>' + i.label + '</span>' + (i.isNew ? '<span class="new">NEW</span>' : '') + '</button>').join('');
+
+  render();
+})();
+</script>
 </body>
 </html>
